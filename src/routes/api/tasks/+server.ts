@@ -1,0 +1,21 @@
+import { json, redirect } from "@sveltejs/kit";
+import { data } from "$lib/server/db";
+import type { RequestHandler } from "./$types";
+import type { Task } from "$lib/types";
+
+export function GET() {
+    return json(data.data)
+}
+
+export const POST: RequestHandler = async ({request}) => {
+    const form = await request.formData()
+    const task: Task = {
+        id: Date.now().toString(),
+        title: form.get('title')?.toString() ?? '',
+        done: false,
+        description: form.get('description')?.toString(),
+        due_date: form.get('due_date')?.toString(),
+    }
+    await data.add(task, form.get('photo') as File)
+    return redirect(301, '/')
+}
