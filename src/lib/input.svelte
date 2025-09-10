@@ -1,21 +1,30 @@
 <script lang="ts">
+    export type InputType = "text" | "textarea" | "file" | "search"
     type Props = {
-        label: string;
+        label?: string;
+        class?: string;
         name?: string;
-        value?: string
-        type?: 'text' | 'textarea' | 'file';
+        value?: string;
+        placeholder?: string;
+        type?: InputType;
     };
-    let { label, type = 'text', name, value = $bindable() }: Props = $props();
+    let {
+        label,
+        type = "text",
+        name,
+        placeholder,
+        class: className,
+        value = $bindable(),
+    }: Props = $props();
 </script>
 
-{#if type === 'textarea'}
-<label>
-    <div>{label}</div>
-    <textarea {name} bind:value={value}></textarea>
+<label class={className}>
+    {#if label}
+        <div>{label}</div>
+    {/if}
+    {#if type === "textarea"}
+        <textarea class="w-100" {name} {placeholder} bind:value></textarea>
+    {:else}
+        <input class="w-100" {type} {name} {placeholder} bind:value />
+    {/if}
 </label>
-{:else}
-<label>
-    <div>{label}</div>
-    <input {type} {name} bind:value={value} />
-</label>
-{/if}

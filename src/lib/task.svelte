@@ -4,7 +4,9 @@
 
     const {task, children}: {task: Task, children: any} = $props()
 
-    async function onDone(target: HTMLInputElement) {
+    async function onDone(e: Event) {
+        const target = e.target as HTMLInputElement
+        task.done = target.checked
         const form = new FormData()
         form.append('done', String(target.checked))
         await fetch(`/api/tasks/${task.id}`, {method: 'PUT', body: form})
@@ -12,7 +14,7 @@
     }
 </script>
 
-<div>
-    <input type="checkbox" checked={task.done} onchange={e => onDone(e.target as HTMLInputElement)} />
+<div class="flex items-begin">
+    <input class="m-2" type="checkbox" onclick={e => {e.stopPropagation()}} checked={task.done} onchange={onDone} />
     {@render children()}
 </div>

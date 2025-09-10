@@ -1,18 +1,31 @@
 <script lang="ts">
-	import '../app.css';
-	import favicon from '$lib/assets/favicon.svg';
-	
-	let { children } = $props();
+    import "../app.css";
+    import favicon from "$lib/assets/favicon.svg";
+
+    const getTime = () => new Date().toLocaleString(undefined, {dateStyle: 'medium', timeStyle: 'short'});
+    let time = $state(getTime());
+    $effect(() => {
+        const interval = setInterval(() => {
+            time = getTime();
+        }, 60000);
+        return () => clearInterval(interval);
+    });
+
+    let { children } = $props();
 </script>
 
 <svelte:head>
-	<link rel="icon" href={favicon} />
+    <link rel="icon" href={favicon} />
 </svelte:head>
 
-<header class="flex justify-between p-2">
-    <a href="/">Todo App</a>
-    {new Date().toLocaleString()}
-    <a href="/task/new">New</a>
-</header>
+<article class="h-full flex flex-col">
+    <header class="flex justify-between items-center p-2 bg-green-700">
+        <a href="/" class="font-bold text-2xl">Todo</a>
+        {time}
+        <a href="/task/new">New</a>
+    </header>
 
-{@render children?.()}
+    <main class="flex-grow p-2 overflow-auto">
+        {@render children?.()}
+    </main>
+</article>
