@@ -17,9 +17,13 @@ export const PUT: RequestHandler = async ({params, request}) => {
     if (form.has('done')) {
         task.done = form.get('done')?.toString() === 'true'
     }
-    const dueDate = form.get('due_date')?.toString()
-    if (dueDate) {
-        task.due_date = new Date(dueDate).toString()
+    if (form.has('due_date')) {
+        const dueDate = form.get('due_date')?.toString()
+        if (dueDate) {
+            task.due_date = new Date(dueDate).toString()
+        } else {
+            task.due_date = undefined
+        }
     }
     await data.update(task, form.get('photo') as File)
     return json({ok: true})
