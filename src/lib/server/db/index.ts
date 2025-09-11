@@ -42,15 +42,31 @@ class Data {
     update = async (task: Task, photo?: File) => {
         const existing = this.get(task.id)
         if (photo) {
+            if (existing?.photo && existing?.photo !== photo?.name) {
+                try {
+                await rm(`${photosBase}/${existing.photo}`)
+                } catch (err) {
+                    if ((err as any).code !== 'ENOENT') {
+                        throw err
+                    }
+                }
+            }
             if (photo.size) {
                 await this.writePhoto(task, photo)
-            } else if (existing?.photo) {
-                await rm(`${photosBase}/${existing.photo}`)
+            } else {
+                task.photo = undefined
             }
         }
         this.data = this.data.map(t => t.id === task.id ? task : t)
         await this.write()
     }
+}
+
+export function withPhotoUrl(task: Task | null): Task | null {
+    if (!task?.photo) {
+        return task
+    }
+    return {...task, photo: `/photos/${task.photo}`}
 }
 
 export const data = new Data()

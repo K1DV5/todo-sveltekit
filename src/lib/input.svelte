@@ -7,6 +7,7 @@
         value?: string;
         placeholder?: string;
         type?: InputType;
+        onchange?: (e: Event) => void;
     };
     let {
         label,
@@ -15,6 +16,7 @@
         placeholder,
         class: className,
         value = $bindable(),
+        onchange,
     }: Props = $props();
 </script>
 
@@ -25,6 +27,6 @@
     {#if type === "textarea"}
         <textarea class="w-100" {name} {placeholder} bind:value></textarea>
     {:else}
-        <input class="w-100" {type} {name} {placeholder} bind:value />
+        <input class="w-100" {type} {name} {placeholder} bind:value onchange={onchange} />
     {/if}
 </label>

@@ -25,7 +25,7 @@
 
 <Editable bind:editing task={data.task} field="photo">
     {#if data.task.photo}
-        <img alt="Attachment" src="/photos/{data.task.photo}" />
+        <img alt="Attachment" src={data.task.photo} />
     {:else}
         <p class="text-sm text-gray-400">(No photo)</p>
     {/if}

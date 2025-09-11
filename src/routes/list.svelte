@@ -3,14 +3,13 @@
     import TaskComp from "$lib/task.svelte";
 
     const {nearest, tasks}: { nearest: Task, tasks: Task[] } = $props();
-
 </script>
 
 {#if nearest}
     <div class="border rounded my-4 relative">
         {#if nearest.photo}
             <a href="/task/{nearest.id}" class="block">
-            <img alt="Task" class="rounded-t w-full object-cover h-30" src="/photos/{nearest.photo}" />
+                <img alt="Task" class="rounded-t w-full object-cover h-30" src={nearest.photo} />
             </a>
         {/if}
         <div class="p-2">
