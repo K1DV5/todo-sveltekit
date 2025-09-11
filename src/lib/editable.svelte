@@ -64,7 +64,7 @@
                 {:else}
                     <img alt="Existing" src={blobUrl || task.photo} />
                 {/if}
-                <Input class="hidden" name={field} type="file" onchange={(e) => {
+                <Input autofocus class="hidden" name={field} type="file" onchange={(e: Event) => {
                     removePhoto = false
                     const file = (e.target as HTMLInputElement).files?.[0]
                     if (file) {
@@ -79,7 +79,7 @@
                 >
             </label>
         {:else}
-            <Input name={field} type={typeByField[field]} value={task[field]} />
+            <Input autofocus name={field} type={typeByField[field]} value={task[field]} />
         {/if}
         <button>Done</button>
         <button
