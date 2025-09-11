@@ -4,9 +4,10 @@
     import type { PageProps } from "./$types";
 
     const { data }: PageProps = $props();
+    let task = $state(data.task)
 
     async function onDelete() {
-        await fetch(`/api/tasks/${data.task.id}`, { method: "DELETE" });
+        await fetch(`/api/tasks/${task.id}`, { method: "DELETE" });
         history.back();
     }
 
@@ -17,34 +18,36 @@
     <title>{data.task.title}</title>
 </svelte:head>
 
-<Editable bind:editing task={data.task} field="title">
-    <Task task={data.task}>
-        {data.task.title}
+<Editable bind:editing task={task} field="title">
+    <Task bind:task={task}>
+        <div class="p-1 flex-grow {task.done ? 'line-through text-gray-400' : ''}">
+            {task.title}
+        </div>
     </Task>
 </Editable>
 
-<Editable bind:editing task={data.task} field="photo">
-    {#if data.task.photo}
-        <img alt="Attachment" src={data.task.photo} />
+<Editable bind:editing task={task} field="photo">
+    {#if task.photo}
+        <img alt="Attachment" src={task.photo} />
     {:else}
         <p class="text-sm text-gray-400">(No photo)</p>
     {/if}
 </Editable>
 
-<Editable bind:editing task={data.task} field="description">
-    {#if data.task.description}
+<Editable bind:editing task={task} field="description">
+    {#if task.description}
         <p>
-            {data.task.description}
+            {task.description}
         </p>
     {:else}
         <p class="text-sm text-gray-400">(No description)</p>
     {/if}
 </Editable>
 
-<Editable bind:editing task={data.task} field="due_date">
-    {#if data.task.due_date}
+<Editable bind:editing task={task} field="due_date">
+    {#if task.due_date}
         <p>
-            {new Date(data.task.due_date)}
+            {new Date(task.due_date)}
         </p>
     {:else}
         <p class="text-sm text-gray-400">(No sue date)</p>

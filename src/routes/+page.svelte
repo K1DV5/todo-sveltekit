@@ -3,8 +3,7 @@
     import type { PageProps } from "./$types";
     import List from "./list.svelte";
     import Kanban from "./kanban.svelte";
-    const { data: dataOrig }: PageProps = $props();
-    const data = $derived(dataOrig)
+    const { data }: PageProps = $props();
 
     let listView = $state(globalThis.window?.location?.hash !== "#kanban");
     $effect(() => {
