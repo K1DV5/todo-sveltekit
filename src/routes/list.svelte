@@ -1,8 +1,8 @@
 <script lang="ts">
     import TaskComp from "$lib/task.svelte";
-    import { getSortedTasks, state } from "$lib/state.svelte.js";
+    import { getSortedFilteredTasks, state } from "$lib/state.svelte.js";
 
-    const sortedTasks = $derived(getSortedTasks())
+    const sortedTasks = $derived(getSortedFilteredTasks())
 
 </script>
 
@@ -34,7 +34,7 @@
 {/if}
 
 {#each sortedTasks as [task, i]}
-    {#if task.id !== state.nearest?.id && task.title.includes(state.filter)}
+    {#if task.id !== state.nearest?.id}
         <div class="border rounded mt-2 p-2">
             <TaskComp bind:task={state.tasks[i]}>
                 <a

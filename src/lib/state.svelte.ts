@@ -29,7 +29,7 @@ export const state: State = $state({
     listView: true,
 })
 
-export const getSortedTasks = () => state.tasks
+export const getSortedFilteredTasks = () => state.tasks
     .map((task, i) => [task, i] as [Task, number])
     .sort(([t1], [t2]) => {
         if (state.sort.by === 'title') {
@@ -48,3 +48,4 @@ export const getSortedTasks = () => state.tasks
         }
         return due1 > due2 ? -1 : 1
     })
+    .filter(([task]) => task.title.includes(state.filter))
