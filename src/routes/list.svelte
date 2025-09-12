@@ -4,7 +4,7 @@
 
 </script>
 
-{#if state.nearest}
+{#if state.nearest?.title?.includes(state.filter)}
     <div class="border rounded my-4 relative">
         <span>nearest</span>
         {#if state.nearest.photo}
@@ -32,7 +32,7 @@
 {/if}
 
 {#each state.tasks as task, i}
-    {#if task.id !== state.nearest?.id}
+    {#if task.id !== state.nearest?.id && task.title.includes(state.filter)}
         <div class="border rounded mt-2 p-2">
             <TaskComp bind:task={state.tasks[i]}>
                 <a

@@ -9,6 +9,7 @@ type Sort = {
 }
 
 type State = {
+    filter: string,
     tasks: Task[],
     nearest: Task | null,
     sort: Sort,
@@ -18,6 +19,7 @@ type State = {
 export const state: State = $state({
     tasks: [],
     nearest: null,
+    filter: '',
     sort: {
         by: 'due',
         direction: 'desc',
