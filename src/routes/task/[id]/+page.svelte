@@ -1,6 +1,7 @@
 <script lang="ts">
     import Editable, { type EditableField } from "$lib/editable.svelte";
     import Task from "$lib/task.svelte";
+    import { Delete, Trash2 } from "@lucide/svelte";
     import type { PageProps } from "./$types";
 
     const { data }: PageProps = $props();
@@ -54,4 +55,4 @@
     {/if}
 </Editable>
 
-<button onclick={() => onDelete()}>Delete</button>
+<button onclick={() => onDelete()}><Trash2 /></button>

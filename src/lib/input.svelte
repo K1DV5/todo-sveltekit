@@ -20,8 +20,8 @@
         <div>{label}</div>
     {/if}
     {#if type === "textarea"}
-        <textarea class="w-100" {...rest} bind:value></textarea>
+        <textarea class="w-full" {...rest} bind:value></textarea>
     {:else}
-        <input class="w-100" {type} {...rest} bind:value />
+        <input class="w-full" {type} {...rest} bind:value />
     {/if}
 </label>

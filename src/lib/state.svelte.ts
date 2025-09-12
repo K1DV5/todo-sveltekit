@@ -1,11 +1,10 @@
 import type { Task } from "./types";
 
-type SortBy = 'due' | 'title'
-type SortDir = 'asc' | 'desc'
+export type SortBy = 'due' | 'title'
 
 type Sort = {
     by: SortBy,
-    direction: SortDir,
+    ascending: {[k in SortBy]: boolean},
 }
 
 type State = {
@@ -22,7 +21,10 @@ export const state: State = $state({
     filter: '',
     sort: {
         by: 'due',
-        direction: 'desc',
+        ascending: {
+            title: true,
+            due: false,
+        },
     },
     listView: true,
 })

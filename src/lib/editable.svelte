@@ -1,5 +1,6 @@
 <script lang="ts">
     import { invalidate } from "$app/navigation";
+    import { Check, CircleMinus, X } from "@lucide/svelte";
     import Input, { type InputType } from "./input.svelte";
     import type { Task } from "./types";
 
@@ -75,18 +76,18 @@
                     type="button"
                     onclick={() => {
                         removePhoto = true;
-                    }}>Remove</button
+                    }}><CircleMinus /></button
                 >
             </label>
         {:else}
             <Input autofocus name={field} type={typeByField[field]} value={task[field]} />
         {/if}
-        <button>Done</button>
+        <button><Check /></button>
         <button
             type="button"
             onclick={() => {
                 editing = null;
-            }}>Cancel</button
+            }}><X /></button
         >
     </form>
 {:else}
