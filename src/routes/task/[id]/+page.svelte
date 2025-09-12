@@ -7,8 +7,8 @@
     let task = $state(data.task)
 
     async function onDelete() {
-        await fetch(`/api/tasks/${task.id}`, { method: "DELETE" });
         history.back();
+        await fetch(`/api/tasks/${task.id}`, { method: "DELETE" });
     }
 
     let editing: EditableField | null = $state(null);
@@ -18,7 +18,7 @@
     <title>{data.task.title}</title>
 </svelte:head>
 
-<Editable bind:editing task={task} field="title">
+<Editable bind:editing bind:task={task} field="title">
     <Task bind:task={task}>
         <div class="p-1 flex-grow {task.done ? 'line-through text-gray-400' : ''}">
             {task.title}
@@ -26,7 +26,7 @@
     </Task>
 </Editable>
 
-<Editable bind:editing task={task} field="photo">
+<Editable bind:editing bind:task={task} field="photo">
     {#if task.photo}
         <img alt="Attachment" src={task.photo} />
     {:else}
@@ -34,7 +34,7 @@
     {/if}
 </Editable>
 
-<Editable bind:editing task={task} field="description">
+<Editable bind:editing bind:task={task} field="description">
     {#if task.description}
         <p>
             {task.description}
@@ -44,7 +44,7 @@
     {/if}
 </Editable>
 
-<Editable bind:editing task={task} field="due_date">
+<Editable bind:editing bind:task={task} field="due_date">
     {#if task.due_date}
         <p>
             {new Date(task.due_date)}

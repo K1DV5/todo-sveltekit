@@ -3,16 +3,15 @@
     import type { PageProps } from "./$types";
     import List from "./list.svelte";
     import Kanban from "./kanban.svelte";
+    import { state } from "$lib/state.svelte.js";
+
     const { data }: PageProps = $props();
 
-    let listView = $state(globalThis.window?.location?.hash !== "#kanban");
     $effect(() => {
-        const listener = () => {
-            listView = globalThis.window?.location?.hash !== "#kanban";
-        };
-        window.addEventListener("hashchange", listener);
-        return () => window.removeEventListener("hashchange", listener);
+        state.tasks = data.tasks
+        state.nearest = data.nearest
     });
+
 </script>
 
 <svelte:head>
@@ -23,10 +22,10 @@
     <Controls />
 
     <div class="flex-grow overflow-auto">
-        {#if listView}
-            <List nearest={data.nearest} tasks={data.tasks} />
+        {#if state.listView}
+            <List />
         {:else}
-            <Kanban nearest={data.nearest} tasks={data.tasks} />
+            <Kanban />
         {/if}
     </div>
 </div>

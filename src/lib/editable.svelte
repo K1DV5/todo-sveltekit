@@ -6,7 +6,7 @@
     export type EditableField = "title" | "description" | "due_date" | "photo";
 
     let {
-        task,
+        task = $bindable(),
         field,
         editing = $bindable(),
         children,
