@@ -1,28 +1,8 @@
 <script lang="ts">
     import TaskComp from "$lib/task.svelte";
-    import { state } from "$lib/state.svelte.js";
-    import type { Task } from "$lib/types";
+    import { getSortedTasks, state } from "$lib/state.svelte.js";
 
-    const sortedTasks = $derived(state.tasks
-        .map((task, i) => [task, i] as [Task, number])
-        .sort(([t1], [t2]) => {
-            if (state.sort.by === 'title') {
-                if (state.sort.ascending.title) {
-                    return t1.title < t2.title ? -1 : 1
-                }
-                return t1.title > t2.title ? -1 : 1
-            }
-            if (!t1.due_date || !t2.due_date) {
-                return 0
-            }
-            const due1 = Date.parse(t1.due_date as string)
-            const due2 = Date.parse(t2.due_date as string)
-            if (state.sort.ascending.due) {
-                return due1 < due2 ? -1 : 1
-            }
-            return due1 > due2 ? -1 : 1
-        })
-    )
+    const sortedTasks = $derived(getSortedTasks())
 
 </script>
 
