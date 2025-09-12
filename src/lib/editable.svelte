@@ -3,6 +3,7 @@
     import { Check, CircleMinus, X } from "@lucide/svelte";
     import Input, { type InputType } from "./input.svelte";
     import type { Task } from "./types";
+    import { taskValidationFields } from "./util";
 
     export type EditableField = "title" | "description" | "due_date" | "photo";
 
@@ -34,6 +35,11 @@
             fdata.set('photo', new File([], ''))
         }
         const value = fdata.get(field);
+        const validation = taskValidationFields[field].safeParse(value)
+        if (!validation.success) {
+            console.error(validation)
+            return
+        }
         if (field === 'photo') {
             const file = value as File
             if (file.size) {

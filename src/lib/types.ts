@@ -6,3 +6,10 @@ export type Task = {
     due_date?: string
     photo?: string
 }
+
+export type SortBy = 'due' | 'title'
+
+export type Sort = {
+    by: SortBy,
+    ascending: {[k in SortBy]: boolean},
+}
