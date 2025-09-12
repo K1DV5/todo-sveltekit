@@ -1,38 +1,29 @@
-# sv
+## State
 
-Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
+As required, the state is controlled from a central place. The implementation
+uses a global state object in a state rune (to make it reactive.) The
+reactivity aspect backs the fulfillment of the optimistic updates requirement.
 
-## Creating a project
+It has been considered that this may cause problems in an SSR environment
+causing leaks between requests. While that can be solved using contexts, that
+solution requires additional setup to make it reactive at the same time as
+contexts are not reactive, introducing complexity irrelevant to the
+requirements. Therefore, is considered out of scope for this project.
 
-If you're seeing this, you've probably already done this step. Congrats!
+## Deployment
 
-```sh
-# create a new project in the current directory
-npx sv create
+The deployment is done on Vercel. Since Vercel has a dedicated app for GitHub
+for handling this kind of deployment, using GitHub Actions for this was not
+necessary.
 
-# create a new project in my-app
-npx sv create my-app
-```
+## Data storage
 
-## Developing
+As this is not specified in the requirements, to keep the implementation
+simple, it uses an in-memory object that is serialized as JSON and synced to
+the storage mechanism (blob) of Vercel. It is read at startup but all
+operations after that modify the data in memory and flush it to the storage. No
+read is done during runtime.
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
-
-```sh
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
-
-## Building
-
-To create a production version of your app:
-
-```sh
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
+The photo files are also stored in the same way, attaching the file URL to the
+photo field of the task data for reference. That way, no special handling is
+required to display the photo on the client.
