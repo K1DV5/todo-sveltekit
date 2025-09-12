@@ -8,6 +8,7 @@
 
 {#if nearest}
     <div class="border rounded my-4 relative">
+        <span>nearest</span>
         {#if nearest.photo}
             <a href="/task/{nearest.id}" class="block">
                 <img alt="Task" class="rounded-t w-full object-cover h-30" src={nearest.photo} />
@@ -33,7 +34,7 @@
 {/if}
 
 {#each tasks as task, i}
-    {#if task.id !== nearest.id}
+    {#if task.id !== nearest?.id}
         <div class="border rounded mt-2 p-2">
             <TaskComp bind:task={tasks[i]}>
                 <a

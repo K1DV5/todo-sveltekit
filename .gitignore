@@ -26,3 +26,4 @@ vite.config.ts.timestamp-*
 # data
 data.json
 static/photos
+.env*.local

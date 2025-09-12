@@ -1,29 +1,33 @@
 import type { Task } from "$lib/types";
-import {readFile, rm, writeFile} from 'node:fs/promises'
+import { put, del, list } from "@vercel/blob";
+import { BLOB_READ_WRITE_TOKEN } from '$env/static/private'
 
-const photosBase = 'static/photos'
-const dataPath = './data.json'
+const photosDir = 'photos'
+const dataPath = 'data.json'
 
 class Data {
     data: Task[] = []
 
     init = async () => {
-        try {
-            const data = await readFile(dataPath)
-            this.data = JSON.parse(data.toString())
-        } catch {}
+        const files = await list({token: BLOB_READ_WRITE_TOKEN})
+        const blob = files.blobs.find(b => b.pathname === dataPath)
+        if (!blob) {
+            return
+        }
+        const res = await fetch(blob.downloadUrl)
+        this.data = await res.json()
     }
 
     get = (id: string) => data.data.find(t => t.id === id)
 
     write = async () => {
-        await writeFile(dataPath, JSON.stringify(this.data))
+        await put(dataPath, JSON.stringify(this.data), {access: "public", token: BLOB_READ_WRITE_TOKEN, allowOverwrite: true})
     }
 
     writePhoto = async (task: Task, photo: File) => {
         const ext = photo.name.split('.').at(-1)
-        task.photo = `${task.id}.${ext}`
-        await writeFile(`${photosBase}/${task.photo}`, Buffer.from(await photo.arrayBuffer()))
+        const blob = await put(`${photosDir}/${task.id}.${ext}`, photo, {access: 'public', token: BLOB_READ_WRITE_TOKEN, allowOverwrite: true})
+        task.photo = blob.downloadUrl
     }
 
     add = async (task: Task, photo?: File) => {
@@ -35,7 +39,11 @@ class Data {
     }
 
     delete = async (id: string) => {
-        this.data = this.data.filter(t => t.id != id)
+        const task = this.data.find(t => t.id === id)
+        if (task?.photo) {
+            await del(task.photo, {token: BLOB_READ_WRITE_TOKEN})
+        }
+        this.data = this.data.filter(t => t.id !== id)
         await this.write()
     }
 
@@ -43,13 +51,7 @@ class Data {
         const existing = this.get(task.id)
         if (photo) {
             if (existing?.photo && existing?.photo !== photo?.name) {
-                try {
-                await rm(`${photosBase}/${existing.photo}`)
-                } catch (err) {
-                    if ((err as any).code !== 'ENOENT') {
-                        throw err
-                    }
-                }
+                await del(existing.photo, {token: BLOB_READ_WRITE_TOKEN})
             }
             if (photo.size) {
                 await this.writePhoto(task, photo)
@@ -60,13 +62,6 @@ class Data {
         this.data = this.data.map(t => t.id === task.id ? task : t)
         await this.write()
     }
-}
-
-export function withPhotoUrl(task: Task | null): Task | null {
-    if (!task?.photo) {
-        return task
-    }
-    return {...task, photo: `/photos/${task.photo}`}
 }
 
 export const data = new Data()

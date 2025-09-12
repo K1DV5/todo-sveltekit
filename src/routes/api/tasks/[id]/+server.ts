@@ -1,9 +1,13 @@
-import { data, withPhotoUrl } from "$lib/server/db";
+import { data } from "$lib/server/db";
 import { error, json } from "@sveltejs/kit";
 import type { RequestHandler } from "./$types";
 
 export const GET: RequestHandler = ({params}) => {
-    return json(withPhotoUrl(data.data.find(t => t.id === params.id) ?? null))
+    const task = data.data.find(t => t.id === params.id)
+    if (!task) {
+        return error(404, 'Task not found')
+    }
+    return json(task)
 }
 
 export const PUT: RequestHandler = async ({params, request}) => {

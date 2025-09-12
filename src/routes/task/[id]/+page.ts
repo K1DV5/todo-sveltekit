@@ -1,9 +1,13 @@
 import type { Task } from "$lib/types";
+import { error } from "@sveltejs/kit";
 import type { PageLoad } from "./$types";
 
 export const load: PageLoad = async ({params, fetch}) => {
-    const task = await fetch(`/api/tasks/${params.id}`)
+    const res = await fetch(`/api/tasks/${params.id}`)
+    if (!res.ok) {
+        error(res.status, res.statusText)
+    }
     return {
-        task: await task.json() as Task,
+        task: await res.json() as Task,
     }
 }
