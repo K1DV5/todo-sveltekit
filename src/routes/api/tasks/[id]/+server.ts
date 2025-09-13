@@ -18,16 +18,9 @@ export const PUT: RequestHandler = async ({params, request}) => {
     const form = await request.formData()
     task.title = form.get('title')?.toString() ?? task.title
     task.description = form.get('description')?.toString() ?? task.description
+    task.due_date = form.get('due_date')?.toString() || task.due_date
     if (form.has('done')) {
         task.done = form.get('done')?.toString() === 'true'
-    }
-    if (form.has('due_date')) {
-        const dueDate = form.get('due_date')?.toString()
-        if (dueDate) {
-            task.due_date = new Date(dueDate).toString()
-        } else {
-            task.due_date = undefined
-        }
     }
     await data.update(task, form.get('photo') as File)
     return json({ok: true})
