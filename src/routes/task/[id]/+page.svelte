@@ -3,16 +3,19 @@
     import Task from "$lib/task.svelte";
     import { Trash2 } from "@lucide/svelte";
     import type { PageProps } from "./$types";
+    import { state as globalState } from "$lib/state.svelte.js";
 
     const { data }: PageProps = $props();
     let task = $state(data.task);
 
     async function onDelete() {
+        globalState.tasks = globalState.tasks.filter(t => t.id !== task.id)
         history.back();
         await fetch(`/api/tasks/${task.id}`, { method: "DELETE" });
     }
 
     let editing: EditableField | null = $state(null);
+
 </script>
 
 <svelte:head>
