@@ -1,9 +1,10 @@
 <script lang="ts">
     import { invalidate } from "$app/navigation";
-    import { Check, CircleMinus, X } from "@lucide/svelte";
+    import { Check, X } from "@lucide/svelte";
     import Input, { type InputType } from "./input.svelte";
     import type { Task } from "./types";
     import { taskValidationFields } from "./util";
+    import PhotoInput from "./photo-input.svelte";
 
     export type EditableField = "title" | "description" | "due_date" | "photo";
 
@@ -26,14 +27,9 @@
         photo: "file",
     };
 
-    let removePhoto = $state(false);
-
     async function onEdit(form: HTMLFormElement) {
         editing = null;
         const fdata = new FormData(form);
-        if (field === 'photo' && removePhoto) {
-            fdata.set('photo', new File([], ''))
-        }
         const value = fdata.get(field);
         const validation = taskValidationFields[field].safeParse(value)
         if (!validation.success) {
@@ -53,8 +49,6 @@
         await fetch(`/api/tasks/${task.id}`, { method: "PUT", body: fdata });
         invalidate(`/task/${task.id}`);
     }
-
-    let blobUrl = $state('')
 </script>
 
 {#if editing === field}
@@ -65,26 +59,7 @@
         }}
     >
         {#if field === "photo"}
-            <label>
-                {#if removePhoto || !blobUrl && !task.photo}
-                    Select
-                {:else}
-                    <img alt="Existing" src={blobUrl || task.photo} />
-                {/if}
-                <Input autofocus class="hidden" name={field} type="file" onchange={(e: Event) => {
-                    removePhoto = false
-                    const file = (e.target as HTMLInputElement).files?.[0]
-                    if (file) {
-                        blobUrl = URL.createObjectURL(file)
-                    }
-                }} />
-                <button
-                    type="button"
-                    onclick={() => {
-                        removePhoto = true;
-                    }}><CircleMinus /></button
-                >
-            </label>
+            <PhotoInput label="Photo" value={task[field]} name={field} />
         {:else}
             <Input autofocus name={field} type={typeByField[field]} value={task[field]} />
         {/if}

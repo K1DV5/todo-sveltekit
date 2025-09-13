@@ -1,5 +1,6 @@
 <script lang="ts">
     import Input from "$lib/input.svelte";
+    import PhotoInput from "$lib/photo-input.svelte";
     import { taskValidationFields } from "$lib/util";
     import z from "zod";
 
@@ -25,7 +26,7 @@
     <Input label="Title" name="title" autofocus />
     <Input label="Due date" name="due_date" type="datetime-local"/>
     <Input type="textarea" label="Description" name="description" />
-    <Input type="file" label="Photo" name="photo" />
+    <PhotoInput label="Photo" name="photo" />
     <div>
         <button>Add</button>
         <button type="button" onclick={() => history.back()}>Cancel</button>
