@@ -1,5 +1,5 @@
 <script lang="ts">
-    export type InputType = "text" | "textarea" | "file" | "search"
+    export type InputType = "text" | "textarea" | "file" | "search" | 'datetime-local'
     type Props = {
         label?: string;
         class?: string;

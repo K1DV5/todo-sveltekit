@@ -23,7 +23,7 @@
 
 <form method="POST" action="/api/tasks/" enctype="multipart/form-data" onsubmit={validate}>
     <Input label="Title" name="title" autofocus />
-    <Input label="Due date" name="due_date" />
+    <Input label="Due date" name="due_date" type="datetime-local"/>
     <Input type="textarea" label="Description" name="description" />
     <Input type="file" label="Photo" name="photo" />
     <div>

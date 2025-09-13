@@ -22,7 +22,7 @@
     const typeByField: Record<EditableField, InputType> = {
         title: "text",
         description: "textarea",
-        due_date: "text",
+        due_date: "datetime-local",
         photo: "file",
     };
 

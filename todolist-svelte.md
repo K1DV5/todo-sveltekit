@@ -1,17 +1,17 @@
-# SvelteKit Todo Application Requirements
+# SvelteKit Todo Application Assignment
 
 ## Introduction
 
-Create an interactive task management application that will allow users to effectively organize and track their work activities. The application will be built on the modern SvelteKit framework and will communicate with an existing REST API. Users will be able to not only create and manage tasks, but also visualize them in various ways - from a classic list to a Kanban board. In addition to a text description, each task can also include visual documentation in the form of attached photos. The system will also offer advanced features such as automatic deadline tracking, task categorization, and a clear visualization of work progress.
+Create an interactive task management application that allows users to efficiently organize and track their work activities. The application will be built on the modern SvelteKit framework and will communicate with an existing REST API. Users will not only be able to create and manage tasks, but also visualize them in various ways—from a classic list to a Kanban board. In addition to a text description, each task can include visual documentation in the form of attached photos. The system will also offer advanced features such as automatic deadline tracking, task categorization, and clear visualization of work progress.
 
 The application emphasizes:
-- Intuitive user interface with multiple view types
-- Efficient data management with instant response
-- Robust image attachment handling
+- Intuitive user interface with multiple display types
+- Efficient data management with immediate response
+- Robust image attachment processing
 - Responsive design for use on all devices
 - Optimized performance and smooth transitions between states
 
-## Technical specifications
+## Technical Specifications
 
 - SvelteKit 2.0+
 - TypeScript
@@ -28,159 +28,154 @@ The application communicates with the backend API using the following endpoints:
 ### 1. List of all tasks
 - **Endpoint**: GET `/api/tasks/`
 - **Functionality**: Get a complete list of tasks
-- **Response**: Task array in JSON format
-- **Usage in the application**:
-- Display on the dashboard
-- Kanban board
-- Filterable list
+- **Response**: Array of tasks in JSON format
+- **Use in the application**: 
+  - Display on the dashboard
+  - Kanban board
+  - Filterable list
 
-### 2. Create a task
+### 2. Creating a task
 - **Endpoint**: POST `/api/tasks/`
-- **Data**:
-- `title`: required, max. 100 characters
-- `description`: optional, max. 500 characters
-- `due_date`: optional
-- `photo`: optional, file (image)
+- **Data**: 
+  - `title`: required, max. 100 characters
+  - `description`: optional, max. 500 characters
+  - `due_date`: optional
+  - `photo`: optional, file (image)
 - **Content-Type**: multipart/form-data
 - **Response**: Created task including ID
-- **Specifics**:
-- Validation of all input fields
-- Handling image uploads
-- Handling error states
+- **Specifics**: 
+  - Validation of all input fields
+  - Handling image uploads
+  - Error handling
 
-### 3. Task detail
+### 3. Task details
 - **Endpoint**: GET `/api/tasks/{id}/`
-- **Parameters**: Task ID in URL
-- **Response**: Task detail including all fields
-- **Error states**: 404 if task does not exist
-- **Usage**: Viewing task detail and editing
+- **Parameters**: Task ID in the URL
+- **Response**: Task details including all fields
+- **Error states**: 404 if the task does not exist
+- **Use**: Displaying task details and editing tasks
 
-### 4. Updating task
+### 4. Task update
 - **Endpoint**: PUT `/api/tasks/{id}/`
 - **Data**: Same structure as when creating
 - **Specifics**:
-- Partial update possible
-- Keep existing image
-- Optimistic updates
+  - Option for partial update
+  - Retention of existing image
+  - Optimistic updates
 
 ### 5. Deleting a task
 - **Endpoint**: DELETE `/api/tasks/{id}/`
 - **Response**: 204 No Content
 - **Functionality**:
-- Confirmation dialog
-- Optimistic updates
-- Handling error states
+  - Confirmation dialog
+  - Optimistic updates
+  - Error handling
 
 ### 6. Nearest deadline
 - **Endpoint**: GET `/api/tasks/nearest-deadline/`
 - **Functionality**: Returns the task with the nearest deadline
 - **Usage**: Special display on the dashboard
 
-## Required functions
+## Required features
 
 ### Dashboard
 1. Overview page (`/`)
-- Display of the nearest deadline
-- Switchable views:
-- Task list
-- Kanban board
-- Filters and sorting
-- Infinite scroll for list
+   - Display of the nearest deadline
+   - Switchable views:
+     - Task list
+     - Kanban board
+   - Filters and sorting
+   - Infinite scroll for the list
 
 ### Task management
 1. Task creation (`/task/new`)
-- Validated form
-- Image upload (drag & drop)
-- Progress indicators
-- Image preview before upload
+   - Validated form
+   - Image upload (drag & drop)
+   - Progress indicators
+   - Image preview before upload
 
-2. Detail and editing (`/task/[id]`)
-- Inline editing
-- Attachment management
-- Change history
+2. Details and editing (`/task/[id]`)
+   - Inline editing
+   - Attachment management
+   - Change history
 
 ### Technical implementation
 1. State Management
-- Central state management
-- Optimistic updates
-- Data caching
+   - Central state management
+   - Optimistic updates
+   - Data caching
 
 2. Performance
-- Lazy loading components
-- Image optimization
-- Data prefetching
+   - Lazy loading of components
+   - Image optimization
+   - Data prefetching
 
 3. UX
-- Loading states
-- Error handling
-- Transition animation
-- Responsive design
+   - Loading states
+   - Error handling
+   - Transition animations
+   - Responsive design
 
 ## Testing
 
 ### Required test types
 1. Unit tests
-- Components
-- Stores
-- Utility functions
+   - Components
+   - Stores
+   - Utility functions
 
 2. Integration tests
-- API communication
-- State management
-- Form validation
+   - API communication
+   - State management
+   - Form validation
 
 3. E2E tests
-- Critical user flows
-- Error scenarios
-- Edge cases
+   - Critical user flows
+   - Error scenarios
+   - Edge cases
 
 ## Submission
 
 ### Required outputs
-1. GitHub repository
-- Clear structure
-- Documentation
-- Setup instructions
+1. Public GitHub repository link
+   - Clear structure
+   - Documentation
+   - Setup instructions
 
-2. Functional demo
-- Deployment on Vercel/Netlify
-- Test data
-- Access data
-
-3. Video presentation (max. 10 minutes)
-- Function demonstration
-- Architectural decisions
-- Interesting implementation details
+2. Video presentation (max. 10 minutes) - youtube link
+   - Demonstration of features - DEMO
+   - Architectural decisions
+   - Interesting implementation details
 
 ### Documentation
 - README.md with:
-- Setup instructions
-- Application architecture
-- Used technologies
-- Description of extension functions
+  - Setup instructions
+  - Application architecture
+  - Technologies used
+  - Description of extended features
 
 ## Evaluation criteria
 
 ### Key areas
 1. Code quality
-- TypeScript usage
-- Application structure
-- Code cleanliness
+   - TypeScript usage
+   - Application structure
+   - Code cleanliness
 
 2. Functionality
-- Requirements fulfillment
-- Error handling
-- Edge cases
+   - Meeting requirements
+   - Error handling
+   - Edge cases
 
 3. Performance
-- Load times
-- Bundle size
-- Optimization
+   - Load times
+   - Bundle size
+   - Optimization
 
 4. UX/UI
-- Responsiveness
-- Accessibility
-- Consistency
+   - Responsive design
+   - Accessibility
+   - Consistency
 
 ### Bonus points
 - CI/CD pipeline

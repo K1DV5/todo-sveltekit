@@ -1,11 +1,11 @@
 <script lang="ts">
     import Editable, { type EditableField } from "$lib/editable.svelte";
     import Task from "$lib/task.svelte";
-    import { Delete, Trash2 } from "@lucide/svelte";
+    import { Trash2 } from "@lucide/svelte";
     import type { PageProps } from "./$types";
 
     const { data }: PageProps = $props();
-    let task = $state(data.task)
+    let task = $state(data.task);
 
     async function onDelete() {
         history.back();
@@ -19,15 +19,19 @@
     <title>{data.task.title}</title>
 </svelte:head>
 
-<Editable bind:editing bind:task={task} field="title">
-    <Task bind:task={task}>
-        <div class="p-1 flex-grow {task.done ? 'line-through text-gray-400' : ''}">
+<Task bind:task>
+    <Editable bind:editing bind:task field="title">
+        <div
+            class="p-1 flex-grow {task.done
+                ? 'line-through text-gray-400'
+                : ''}"
+        >
             {task.title}
         </div>
-    </Task>
-</Editable>
+    </Editable>
+</Task>
 
-<Editable bind:editing bind:task={task} field="photo">
+<Editable bind:editing bind:task field="photo">
     {#if task.photo}
         <img alt="Attachment" src={task.photo} />
     {:else}
@@ -35,7 +39,7 @@
     {/if}
 </Editable>
 
-<Editable bind:editing bind:task={task} field="description">
+<Editable bind:editing bind:task field="description">
     {#if task.description}
         <p>
             {task.description}
@@ -45,10 +49,10 @@
     {/if}
 </Editable>
 
-<Editable bind:editing bind:task={task} field="due_date">
+<Editable bind:editing bind:task field="due_date">
     {#if task.due_date}
         <p>
-            {new Date(task.due_date)}
+            {new Date(task.due_date).toLocaleString()}
         </p>
     {:else}
         <p class="text-sm text-gray-400">(No sue date)</p>
