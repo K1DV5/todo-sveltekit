@@ -5,6 +5,8 @@ export type Task = {
     description?: string
     due_date?: string
     photo?: string
+    created_at: string
+    edited_at?: string
 }
 
 export type SortBy = 'due' | 'title'

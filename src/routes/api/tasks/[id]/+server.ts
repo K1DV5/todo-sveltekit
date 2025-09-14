@@ -22,6 +22,7 @@ export const PUT: RequestHandler = async ({params, request}) => {
     if (form.has('done')) {
         task.done = form.get('done')?.toString() === 'true'
     }
+    task.edited_at = new Date().toISOString()
     await data.update(task, form.get('photo') as File)
     return json({ok: true})
 }

@@ -15,6 +15,7 @@ export const POST: RequestHandler = async ({request}) => {
         done: false,
         description: form.get('description')?.toString(),
         due_date: form.get('due_date')?.toString(),
+        created_at: new Date().toISOString(),
     }
     await data.add(task, form.get('photo') as File)
     return redirect(301, '/')

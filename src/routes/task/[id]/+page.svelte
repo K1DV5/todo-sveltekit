@@ -62,4 +62,11 @@
     {/if}
 </Editable>
 
+<div class="text-gray-400 text-sm">
+    <div>Created {new Date(task.created_at).toLocaleString()}</div>
+    {#if task.edited_at}
+        <div>Edited {new Date(task.created_at).toLocaleString()}</div>
+    {/if}
+</div>
+
 <button onclick={() => onDelete()}><Trash2 /></button>
