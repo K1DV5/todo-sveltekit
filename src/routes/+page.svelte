@@ -8,8 +8,12 @@
     const { data }: PageProps = $props();
 
     $effect(() => {
-        state.tasks = data.tasks
-        state.nearest = data.nearest
+        state.tasks = data.tasks.filter(t => !state.deletedIds.has(t.id))
+        if (state.deletedIds.has(data.nearest?.id)) {
+            state.nearest = null
+        } else {
+            state.nearest = data.nearest
+        }
     });
 
 </script>

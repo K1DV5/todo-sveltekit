@@ -3,20 +3,16 @@
     import Task from "$lib/task.svelte";
     import { Trash2 } from "@lucide/svelte";
     import type { PageProps } from "./$types";
-    import { state as globalState } from "$lib/state.svelte.js";
+    import { state as appState } from "$lib/state.svelte.js";
     import { goto } from "$app/navigation";
 
     const { data }: PageProps = $props();
     let task = $state(data.task);
 
     async function onDelete() {
-        globalState.tasks = globalState.tasks.filter(t => t.id !== task.id)
-        // const index = globalState.tasks.findIndex(t => t.id === task.id)
-        // if (index != null) {
-        //     globalState.tasks.splice(index, 1)
-        // }
-        goto('/')
+        appState.deletedIds.add(task.id)
         fetch(`/api/tasks/${task.id}`, { method: "DELETE" }).then(console.log);
+        goto('/')
     }
 
     let editing: EditableField | null = $state(null);

@@ -3,6 +3,7 @@ import type { Task, Sort } from "./types";
 type State = {
     filter: string,
     tasks: Task[],
+    deletedIds: Set<string>,
     nearest: Task | null,
     sort: Sort,
     listView: boolean,
@@ -10,6 +11,7 @@ type State = {
 
 export const state: State = $state({
     tasks: [],
+    deletedIds: new Set(),
     nearest: null,
     filter: '',
     sort: {
