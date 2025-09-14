@@ -61,7 +61,7 @@
     {#if previewUrl}
         <button
             type="button"
-            class="absolute right-2 top-8 p-2 rounded border"
+            class="absolute right-2 top-{label ? 8 : 4} p-2 rounded border"
             onclick={onClear}
         >
             <X />

@@ -22,51 +22,58 @@
     <title>{data.task.title}</title>
 </svelte:head>
 
-<Task bind:task>
-    <Editable bind:editing bind:task field="title">
-        <div
-            class="p-1 flex-grow {task.done
-                ? 'line-through text-gray-400'
-                : ''}"
-        >
-            {task.title}
-        </div>
-    </Editable>
-</Task>
-
-<Editable bind:editing bind:task field="photo">
-    {#if task.photo}
-        <img alt="Attachment" src={task.photo} />
-    {:else}
-        <p class="text-sm text-gray-400">(No photo)</p>
-    {/if}
-</Editable>
-
-<Editable bind:editing bind:task field="description">
-    {#if task.description}
-        <p>
-            {task.description}
-        </p>
-    {:else}
-        <p class="text-sm text-gray-400">(No description)</p>
-    {/if}
-</Editable>
-
-<Editable bind:editing bind:task field="due_date">
-    {#if task.due_date}
-        <p>
-            {new Date(task.due_date).toLocaleString()}
-        </p>
-    {:else}
-        <p class="text-sm text-gray-400">(No sue date)</p>
-    {/if}
-</Editable>
-
-<div class="text-gray-400 text-sm">
-    <div>Created {new Date(task.created_at).toLocaleString()}</div>
-    {#if task.edited_at}
-        <div>Edited {new Date(task.created_at).toLocaleString()}</div>
-    {/if}
+<div class="flex w-full">
+    <div class="flex-grow">
+        <Task bind:task>
+            <Editable bind:editing bind:task field="title">
+                <div
+                    class="p-1 flex-grow {task.done
+                        ? 'line-through text-gray-400'
+                        : ''}"
+                >
+                    {task.title}
+                </div>
+            </Editable>
+        </Task>
+    </div>
+    <button onclick={() => onDelete()}><Trash2 /></button>
 </div>
 
-<button onclick={() => onDelete()}><Trash2 /></button>
+<div class="flex w-full">
+    <div class="flex-grow">
+        <Editable bind:editing bind:task field="description">
+            {#if task.description}
+                <p>
+                    {task.description}
+                </p>
+            {:else}
+                <p class="text-sm text-gray-400">(No description)</p>
+            {/if}
+        </Editable>
+
+        <Editable bind:editing bind:task field="due_date">
+            {#if task.due_date}
+                <p>
+                    {new Date(task.due_date).toLocaleString()}
+                </p>
+            {:else}
+                <p class="text-sm text-gray-400">(No due date)</p>
+            {/if}
+        </Editable>
+        <div class="text-gray-400 text-sm">
+            <div>Created {new Date(task.created_at).toLocaleString()}</div>
+            {#if task.edited_at}
+                <div>Edited {new Date(task.created_at).toLocaleString()}</div>
+            {/if}
+        </div>
+    </div>
+    <div class="flex-grow flex basis-1/3 p-4">
+        <Editable bind:editing bind:task field="photo">
+            {#if task.photo}
+                <img class="rounded w-full" alt="Attachment" src={task.photo} />
+            {:else}
+                <div class="rounded border w-full text-sm text-gray-400 p-4">(No photo)</div>
+            {/if}
+        </Editable>
+    </div>
+</div>

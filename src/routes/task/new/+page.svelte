@@ -21,12 +21,17 @@
     <title>New task</title>
 </svelte:head>
 
-
 <form method="POST" action="/api/tasks/" enctype="multipart/form-data" onsubmit={validate}>
     <Input label="Title" name="title" autofocus />
-    <Input label="Due date" name="due_date" type="datetime-local"/>
-    <Input type="textarea" label="Description" name="description" />
-    <PhotoInput label="Photo" name="photo" />
+    <div class="flex mt-4">
+        <div class="flex-grow">
+            <Input label="Due date" name="due_date" type="datetime-local"/>
+            <Input type="textarea" label="Description" name="description" />
+        </div>
+        <div class="ml-4">
+            <PhotoInput label="Photo" name="photo" />
+        </div>
+    </div>
     <div>
         <button>Add</button>
         <button type="button" onclick={() => history.back()}>Cancel</button>

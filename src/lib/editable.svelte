@@ -53,27 +53,32 @@
 
 {#if editing === field}
     <form
+        class="flex-grow relative"
         onsubmit={(e) => {
             e.preventDefault();
             onEdit((e as SubmitEvent).target as HTMLFormElement);
         }}
     >
         {#if field === "photo"}
-            <PhotoInput label="Photo" value={task[field]} name={field} />
+            <PhotoInput value={task[field]} name={field} />
         {:else}
             <Input autofocus name={field} type={typeByField[field]} value={task[field]} />
         {/if}
-        <button><Check /></button>
-        <button
-            type="button"
-            onclick={() => {
-                editing = null;
-            }}><X /></button
-        >
+        <div class="absolute bottom--1 bg-gray-500 rounded-b">
+            <button class="p-2"><Check /></button>
+            <button
+                class="p-2"
+                type="button"
+                onclick={() => {
+                    editing = null;
+                }}>
+                <X />
+            </button>
+        </div>
     </form>
 {:else}
     <button
-        class="block"
+        class="block flex-grow text-start"
         onclick={() => {
             editing = field;
         }}
