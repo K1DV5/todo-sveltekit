@@ -3,22 +3,24 @@ import { put, del, list } from "@vercel/blob";
 import { BLOB_READ_WRITE_TOKEN } from '$env/static/private'
 import { readFile, rm, writeFile } from "fs/promises";
 
-const photosDir = 'photos'
 const dataPath = 'data.json'
+const photosDir = 'photos'
+
+const fsName = (name: string) => name.endsWith('.json') ? name : `static/${name}`
 
 async function writeF(name: string, contents: string | File) {
-    if (!BLOB_READ_WRITE_TOKEN) {
-        await writeFile(`static/${name}`, typeof contents === 'string' ? contents : await contents.bytes())
-        return `/${name}`
+    if (BLOB_READ_WRITE_TOKEN) {
+        const blob = await put(name, contents, {access: "public", token: BLOB_READ_WRITE_TOKEN, allowOverwrite: true})
+        return blob.downloadUrl
     }
-    const blob = await put(name, contents, {access: "public", token: BLOB_READ_WRITE_TOKEN, allowOverwrite: true})
-    return blob.downloadUrl
+    await writeFile(fsName(name), typeof contents === 'string' ? contents : await contents.bytes())
+    return `/${name}`
 }
 
 async function deleteF(name: string) {
     if (!BLOB_READ_WRITE_TOKEN) {
         try {
-            await rm(name)
+            await rm(fsName(name))
         } catch (err) {
             if ((err as any).code !== 'ENOENT') {
                 throw err
@@ -32,7 +34,7 @@ async function deleteF(name: string) {
 async function readFtxt(name: string) {
     if (!BLOB_READ_WRITE_TOKEN) {
         try {
-            return (await readFile(name)).toString()
+            return (await readFile(fsName(name))).toString()
         } catch (err) {
             if ((err as any).code !== 'ENOENT') {
                 throw err
