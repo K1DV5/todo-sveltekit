@@ -16,7 +16,7 @@
         //     globalState.tasks.splice(index, 1)
         // }
         goto('/')
-        await fetch(`/api/tasks/${task.id}`, { method: "DELETE" });
+        fetch(`/api/tasks/${task.id}`, { method: "DELETE" }).then(console.log);
     }
 
     let editing: EditableField | null = $state(null);
