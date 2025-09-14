@@ -88,10 +88,8 @@
             class="hidden"
             type="file"
             {...rest}
-            {@attach (n) => {
-        node = n;
-        }}
-        onchange={onChange}
+            onchange={onChange}
+            {@attach (n) => { node = n }}
         />
     </label>
 </div>

@@ -17,7 +17,13 @@ async function writeF(name: string, contents: string | File) {
 
 async function deleteF(name: string) {
     if (!BLOB_READ_WRITE_TOKEN) {
-        await rm(name)
+        try {
+            await rm(name)
+        } catch (err) {
+            if ((err as any).code !== 'ENOENT') {
+                throw err
+            }
+        }
         return
     }
     await del(name, {token: BLOB_READ_WRITE_TOKEN})
