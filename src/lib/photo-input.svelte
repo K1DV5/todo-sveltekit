@@ -29,15 +29,23 @@
         currentSelected = "";
     }
 
+    let hovering = $state(false)
+
     function onDragOver(e: DragEvent) {
+        hovering = true
         e.preventDefault();
         if (e.dataTransfer) {
             e.dataTransfer.dropEffect = "copy";
         }
     }
 
+    function onDragLeave() {
+        hovering = false
+    }
+
     function onDrop(e: DragEvent) {
         e.preventDefault();
+        hovering = false
         const file = e.dataTransfer?.files?.[0];
         if (!file || !node) {
             return;
@@ -49,32 +57,41 @@
     let previewUrl = $derived(currentSelected ?? value);
 </script>
 
-<label class={className}>
-    {#if label}
-        <div>{label}</div>
+<div class="relative">
+    {#if previewUrl}
+        <button
+            type="button"
+            class="absolute right-2 top-8 p-2 rounded border"
+            onclick={onClear}
+        >
+            <X />
+        </button>
     {/if}
-    <div
-        class="border w-full rounded border p-4 relative"
-        role="application"
-        ondrop={onDrop}
-        ondragover={onDragOver}
-    >
-        {#if previewUrl}
-            <button type="button" class="absolute right-4" onclick={onClear}>
-                <X />
-            </button>
-            <img class="w-full" src={previewUrl} alt="Current value" />
-        {:else}
-            Click to select photo or drop here
+    <label class={className}>
+        {#if label}
+            <div>{label}</div>
         {/if}
-    </div>
-    <input
-        class="hidden"
-        type="file"
-        {...rest}
-        {@attach (n) => {
-            node = n;
+        <div
+            class="border rounded border-dashed p-4 {hovering ? 'border-blue-400' : ''}"
+            role="application"
+            ondrop={onDrop}
+            ondragover={onDragOver}
+            ondragleave={onDragLeave}
+        >
+            {#if previewUrl}
+                <img class="w-full" src={previewUrl} alt="Current value" />
+            {:else}
+                Click to select photo or drop here
+            {/if}
+        </div>
+        <input
+            class="hidden"
+            type="file"
+            {...rest}
+            {@attach (n) => {
+        node = n;
         }}
         onchange={onChange}
-    />
-</label>
+        />
+    </label>
+</div>
