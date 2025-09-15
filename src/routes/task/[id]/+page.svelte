@@ -27,51 +27,54 @@
     <div class="flex-grow">
         <Task bind:task>
             <Editable bind:editing bind:task field="title">
-                <div
-                    class="p-1 flex-grow {task.done
+                <h1
+                    class="p-4 pl-0 font-bold flex-grow {task.done
                         ? 'line-through text-gray-400'
                         : ''}"
                 >
                     {task.title}
-                </div>
+                </h1>
             </Editable>
         </Task>
     </div>
     <button onclick={() => onDelete()}><Trash2 /></button>
 </div>
 
-<div class="flex w-full">
+<div class="flex w-full flex-wrap">
     <div class="flex-grow">
         <Editable bind:editing bind:task field="description">
             {#if task.description}
-                <p>
-                    {task.description}
-                </p>
+                <div class="rounded">
+                    {#each task.description.replace(/\r/g, '').split('\n\n') as para}
+                        <p class="p-2">{para}</p>
+                    {/each}
+                </div>
             {:else}
-                <p class="text-sm text-gray-400">(No description)</p>
+                <p class="text-sm text-gray-400 rounded p-2">(No description)</p>
             {/if}
         </Editable>
 
         <Editable bind:editing bind:task field="due_date">
             {#if task.due_date}
-                <p>
-                    {new Date(task.due_date).toLocaleString()}
+                <p class="rounded p-2">
+                    <span class="text-gray-400">Due on:</span> {new Date(task.due_date).toLocaleString()}
                 </p>
             {:else}
-                <p class="text-sm text-gray-400">(No due date)</p>
+                <p class="text-sm text-gray-400 rounded p-2">(No due date)</p>
             {/if}
         </Editable>
-        <div class="text-gray-400 text-sm">
+
+        <div class="text-gray-400 rounded p-2 text-sm">
             <div>Created {new Date(task.created_at).toLocaleString()}</div>
             {#if task.edited_at}
                 <div>Edited {new Date(task.created_at).toLocaleString()}</div>
             {/if}
         </div>
     </div>
-    <div class="flex-grow flex basis-1/3 p-4">
+    <div class="flex basis-70">
         <Editable bind:editing bind:task field="photo">
             {#if task.photo}
-                <img class="rounded w-full" alt="Attachment" src={task.photo} />
+                <img class="rounded w-full p-4" alt="Attachment" src={task.photo} />
             {:else}
                 <div class="rounded border w-full text-sm text-gray-400 p-4">(No photo)</div>
             {/if}

@@ -65,9 +65,9 @@
             <Input autofocus name={field} type={typeByField[field]} value={task[field]} />
         {/if}
         <div class="absolute bottom--1 bg-gray-500 rounded-b">
-            <button class="p-2"><Check /></button>
+            <button class="p-2 cursor-pointer"><Check /></button>
             <button
-                class="p-2"
+                class="p-2 cursor-pointer"
                 type="button"
                 onclick={() => {
                     editing = null;
@@ -78,7 +78,7 @@
     </form>
 {:else}
     <button
-        class="block flex-grow text-start"
+        class="block flex-grow text-start cursor-pointer hover:bg-gray-500/20"
         onclick={() => {
             editing = field;
         }}

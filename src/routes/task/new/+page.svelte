@@ -22,18 +22,20 @@
 </svelte:head>
 
 <form method="POST" action="/api/tasks/" enctype="multipart/form-data" onsubmit={validate}>
-    <Input label="Title" name="title" autofocus />
-    <div class="flex mt-4">
-        <div class="flex-grow">
+    <div class="p-2">
+        <Input label="Title" name="title" autofocus />
+        <Input type="textarea" label="Description" name="description" />
+    </div>
+    <div class="flex flex-wrap mt-4">
+        <div class="flex-grow p-2 basis-60">
             <Input label="Due date" name="due_date" type="datetime-local"/>
-            <Input type="textarea" label="Description" name="description" />
         </div>
-        <div class="ml-4">
+        <div class="flex-grow p-2">
             <PhotoInput label="Photo" name="photo" />
         </div>
     </div>
-    <div>
-        <button>Add</button>
-        <button type="button" onclick={() => history.back()}>Cancel</button>
+    <div class="p-1">
+        <button class="mx-1 bg-blue-400 px-4 py-2 rounded-lg cursor-pointer">Add</button>
+        <button class="mx-1 border border-blue-400 rounded-lg p-2 cursor-pointer" type="button" onclick={() => history.back()}>Cancel</button>
     </div>
 </form>

@@ -15,8 +15,8 @@
     }
 </script>
 
-<div class="flex items-begin">
-    <button onclick={onDone}>
+<div class="flex items-start">
+    <button onclick={onDone} class="p-4">
         {#if task.done}
             <CircleCheck />
         {:else}

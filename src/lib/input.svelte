@@ -17,11 +17,11 @@
 
 <label class={className}>
     {#if label}
-        <div>{label}</div>
+        <div class="text-gray-400">{label}</div>
     {/if}
     {#if type === "textarea"}
-        <textarea class="w-full" {...rest} bind:value></textarea>
+        <textarea class="w-full rounded field-sizing-content" {...rest} bind:value></textarea>
     {:else}
-        <input class="w-full" {type} {...rest} bind:value />
+        <input class="w-full rounded" {type} {...rest} bind:value />
     {/if}
 </label>

@@ -1,9 +1,13 @@
 <script lang="ts">
     import "../app.css";
     import favicon from "$lib/assets/favicon.svg";
-    import {Globe} from '@lucide/svelte'
+    import { Globe } from "@lucide/svelte";
 
-    const getTime = () => new Date().toLocaleString(undefined, {dateStyle: 'medium', timeStyle: 'short'});
+    const getTime = () =>
+        new Date().toLocaleString(undefined, {
+            dateStyle: "medium",
+            timeStyle: "short",
+        });
     let time = $state(getTime());
     $effect(() => {
         const interval = setInterval(() => {
@@ -19,17 +23,21 @@
     <link rel="icon" href={favicon} />
 </svelte:head>
 
-<article class="h-full flex flex-col">
-    <header class="flex justify-between items-center p-2 bg-green-700">
-        <a href="/" class="font-bold text-2xl flex items-center">
-            <img alt="Favicon" src={favicon} />
-            <span class="ml-3">Todo</span>
-        </a>
-        {time}
-        <Globe />
-    </header>
+<article class="h-full flex flex-col items-center p-2">
+    <div class="h-full flex flex-col w-[min(100%,50rem)]">
+        <header class="rounded-lg flex justify-between items-center bg-blue-500 shadow-xl text-white">
+            <a href="/" class="font-bold p-4 text-2xl flex items-center">
+                <img alt="Favicon" src={favicon} />
+                <span class="ml-3">Todo</span>
+            </a>
+            {time}
+            <div class="p-4">
+                <Globe />
+            </div>
+        </header>
 
-    <main class="flex-grow p-2 overflow-auto">
-        {@render children?.()}
-    </main>
+        <main class="mt-1 flex-grow p-2 overflow-auto">
+            {@render children?.()}
+        </main>
+    </div>
 </article>

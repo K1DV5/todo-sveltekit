@@ -69,10 +69,10 @@
     {/if}
     <label class={className}>
         {#if label}
-            <div>{label}</div>
+            <div class="text-gray-400">{label}</div>
         {/if}
         <div
-            class="border rounded border-dashed p-4 {hovering ? 'border-blue-400' : ''}"
+            class="border cursor-pointer rounded border-dashed p-4 hover:border-blue-400 {hovering ? 'border-blue-400' : ''}"
             role="application"
             ondrop={onDrop}
             ondragover={onDragOver}
