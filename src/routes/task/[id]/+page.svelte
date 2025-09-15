@@ -37,7 +37,7 @@
             </Editable>
         </Task>
     </div>
-    <button onclick={() => onDelete()}><Trash2 /></button>
+    <button class="text-red-400 cursor-pointer p-4 hover:bg-red-400/20 rounded-xl" onclick={() => onDelete()}><Trash2 /></button>
 </div>
 
 <div class="flex w-full flex-wrap">
