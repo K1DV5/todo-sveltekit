@@ -9,9 +9,27 @@
     const { data }: PageProps = $props();
     let task = $state(data.task);
 
-    async function onDelete() {
+    async function deleteTask() {
         appState.deletedIds.add(task.id)
-        fetch(`/api/tasks/${task.id}`, { method: "DELETE" }).then(console.log);
+        appState.loading = true
+        const res = await fetch(`/api/tasks/${task.id}`, { method: "DELETE" })
+        appState.loading = false
+        if (res.ok) {
+            appState.alert = {
+                type: 'success',
+                message: 'Successfully deleted task',
+            }
+            return
+        }
+        const data: {message: string} = await res.json()
+        appState.alert = {
+            type: 'error',
+            message: data.message
+        }
+    }
+
+    function onDelete() {
+        deleteTask()
         goto('/')
     }
 
@@ -37,7 +55,7 @@
             </Editable>
         </Task>
     </div>
-    <button class="text-red-400 cursor-pointer p-4 hover:bg-red-400/20 rounded-xl" onclick={() => onDelete()}><Trash2 /></button>
+    <button class="text-red-400 cursor-pointer p-4 hover:bg-red-400/20 rounded-xl" onclick={onDelete}><Trash2 /></button>
 </div>
 
 <div class="flex w-full flex-wrap">

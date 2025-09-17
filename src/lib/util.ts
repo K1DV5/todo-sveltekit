@@ -1,5 +1,5 @@
 import type { Sort, Task } from "./types";
-import z from "zod";
+import z, { ZodError } from "zod";
 
 export function sortFilterTasks(tasks: Task[], sort: Sort, filter: string) {
     return tasks
@@ -32,3 +32,7 @@ export const taskValidationFields = {
 }
 
 export const newTaskSchema = z.object(taskValidationFields)
+
+export function formatValidationError(err: ZodError<any>) {
+    return err.issues.map(issue => `${issue.path.join('.')}: ${issue.message}`).join('\n')
+}

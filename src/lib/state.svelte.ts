@@ -7,6 +7,11 @@ type State = {
     nearest: Task | null,
     sort: Sort,
     listView: boolean,
+    alert?: {
+        type: 'error' | 'success'
+        message: string
+    },
+    loading: boolean
 }
 
 export const state: State = $state({
@@ -22,4 +27,5 @@ export const state: State = $state({
         },
     },
     listView: true,
+    loading: false,
 })

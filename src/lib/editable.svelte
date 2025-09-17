@@ -5,6 +5,7 @@
     import type { Task } from "./types";
     import { taskValidationFields } from "./util";
     import PhotoInput from "./photo-input.svelte";
+    import { state as appState } from "./state.svelte";
 
     export type EditableField = "title" | "description" | "due_date" | "photo";
 
@@ -46,8 +47,22 @@
         } else {
             task[field] = value as string;
         }
-        await fetch(`/api/tasks/${task.id}`, { method: "PUT", body: fdata });
-        invalidate(`/task/${task.id}`);
+        appState.loadingOptim = true
+        const res = await fetch(`/api/tasks/${task.id}`, { method: "PUT", body: fdata });
+        appState.loadingOptim = false
+        if (res.ok) {
+            appState.alert = {
+                type: 'success',
+                message: 'Successfully edited field',
+            }
+            invalidate(`/task/${task.id}`);
+            return
+        }
+        const data: {message: string} = await res.json()
+        appState.alert = {
+            type: 'error',
+            message: data.message,
+        }
     }
 </script>
 

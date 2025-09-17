@@ -1,7 +1,8 @@
 <script lang="ts">
     import "../app.css";
     import favicon from "$lib/assets/favicon.svg";
-    import { Globe } from "@lucide/svelte";
+    import { Ban, CircleCheckBig, Globe, Loader } from "@lucide/svelte";
+    import { state as appState } from "$lib/state.svelte";
 
     const getTime = () =>
         new Date().toLocaleString(undefined, {
@@ -15,6 +16,13 @@
         }, 60000);
         return () => clearInterval(interval);
     });
+
+    $effect(() => {
+        if (!appState.alert) {
+            return
+        }
+        setTimeout(() => {appState.alert = undefined}, 3000)
+    })
 
     let { children } = $props();
 </script>
@@ -40,4 +48,25 @@
             {@render children?.()}
         </main>
     </div>
+    {#if appState.alert}
+        <div class="absolute bottom-4 left-4 right-0 flex justify-center">
+            <div class="text-white p-4 shadow-xl rounded-lg border flex {appState.alert.type === 'error' ? 'bg-red-400' : 'bg-green-500'}">
+            {#if appState.alert.type === 'success'}
+                <CircleCheckBig />
+            {:else}
+                <Ban />
+            {/if}
+            <div>
+                {#each appState.alert.message.split('\n') as line}
+                    <div class="ml-2">{line}</div>
+                {/each}
+            </div>
+            </div>
+        </div>
+    {/if}
+    {#if appState.loading}
+        <div class="absolute bottom-4 right-4 p-2 text-white bg-blue-500 rounded-[50%] animate-spin">
+            <Loader />
+        </div>
+    {/if}
 </article>

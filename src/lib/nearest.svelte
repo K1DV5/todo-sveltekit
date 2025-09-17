@@ -21,10 +21,10 @@
                         {new Date(task.due_date).toLocaleString()}
                     </div>
                 {/if}
+                {#if task.description}
+                    <div class="pt-2 text-gray-400">{task.description}</div>
+                {/if}
             </a>
         </TaskComp>
-        {#if task.description}
-            <div class="p-2 text-gray-400">{task.description}</div>
-        {/if}
     </div>
 </div>
