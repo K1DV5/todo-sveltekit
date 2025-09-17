@@ -3,6 +3,7 @@
     import favicon from "$lib/assets/favicon.svg";
     import { Ban, CircleCheckBig, Globe, Loader } from "@lucide/svelte";
     import { state as appState } from "$lib/state.svelte";
+    import Confirm from "$lib/confirm.svelte";
 
     const getTime = () =>
         new Date().toLocaleString(undefined, {
@@ -69,4 +70,5 @@
             <Loader />
         </div>
     {/if}
+    <Confirm />
 </article>

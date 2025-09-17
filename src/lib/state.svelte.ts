@@ -11,6 +11,7 @@ type State = {
         type: 'error' | 'success'
         message: string
     },
+    question?: string
     loading: boolean
 }
 

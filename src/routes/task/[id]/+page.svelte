@@ -5,6 +5,7 @@
     import type { PageProps } from "./$types";
     import { state as appState } from "$lib/state.svelte.js";
     import { goto } from "$app/navigation";
+    import { confirm } from "$lib/confirm.svelte";
 
     const { data }: PageProps = $props();
     let task = $state(data.task);
@@ -29,8 +30,13 @@
     }
 
     function onDelete() {
-        deleteTask()
-        goto('/')
+        confirm('Do you really want to delete this task?').then(ans => {
+            if (!ans) {
+                return
+            }
+            deleteTask()
+            goto('/')
+        })
     }
 
     let editing: EditableField | null = $state(null);
