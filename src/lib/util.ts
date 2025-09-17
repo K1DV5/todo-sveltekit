@@ -25,8 +25,10 @@ export function sortFilterTasks(tasks: Task[], sort: Sort, filter: string) {
 }
 
 export const taskValidationFields = {
-    title: z.string().max(100),
+    title: z.string().max(100).min(1),
     description: z.string().max(500).optional(),
     due_date: z.string().optional(),
     photo: z.file().optional(),
 }
+
+export const newTaskSchema = z.object(taskValidationFields)

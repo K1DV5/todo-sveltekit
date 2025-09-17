@@ -1,19 +1,32 @@
 <script lang="ts">
+    import { goto } from "$app/navigation";
     import Input from "$lib/input.svelte";
     import PhotoInput from "$lib/photo-input.svelte";
-    import { taskValidationFields } from "$lib/util";
-    import z from "zod";
+    import { newTaskSchema } from "$lib/util";
 
-    const newTaskSchema = z.object(taskValidationFields)
+    let adding = $state(false)
 
-    function validate(e: SubmitEvent) {
-        const form = new FormData(e.target as HTMLFormElement)
-        const data = newTaskSchema.safeParse(Object.fromEntries(form))
-        if (data.success) {
+    async function submit(form: FormData) {
+        const res = await fetch('/api/tasks', {method: 'POST', body: form})
+        adding = false
+        if (res.ok) {
+            goto('/')
             return
         }
-        console.error(data)
+        const data: {error: string} = await res.json()
+        console.error(data.error)
+    }
+
+    function onSubmit(e: SubmitEvent) {
         e.preventDefault()
+        const form = new FormData(e.target as HTMLFormElement)
+        const data = newTaskSchema.safeParse(Object.fromEntries(form))
+        if (!data.success) {
+            console.error(data)
+            return
+        }
+        adding = true
+        submit(form)
     }
 </script>
 
@@ -21,7 +34,7 @@
     <title>New task</title>
 </svelte:head>
 
-<form method="POST" action="/api/tasks/" enctype="multipart/form-data" onsubmit={validate}>
+<form method="POST" action="/api/tasks/" enctype="multipart/form-data" onsubmit={onSubmit}>
     <div class="p-2">
         <Input label="Title" name="title" autofocus />
         <Input type="textarea" label="Description" name="description" />
@@ -35,7 +48,7 @@
         </div>
     </div>
     <div class="p-1">
-        <button class="mx-1 bg-blue-400 px-4 py-2 rounded-lg cursor-pointer">Add</button>
-        <button class="mx-1 border border-blue-400 rounded-lg p-2 cursor-pointer" type="button" onclick={() => history.back()}>Cancel</button>
+        <button disabled={adding} class="mx-1 bg-blue-400 px-4 py-2 rounded-lg cursor-pointer">{adding ? 'Adding...' : 'Add'}</button>
+        <button disabled={adding} class="mx-1 border border-blue-400 rounded-lg p-2 cursor-pointer" type="button" onclick={() => history.back()}>Cancel</button>
     </div>
 </form>
