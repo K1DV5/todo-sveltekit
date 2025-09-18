@@ -2,7 +2,6 @@
     import Controls from "./controls.svelte";
     import type { PageProps } from "./$types";
     import List from "./list.svelte";
-    import Kanban from "./kanban.svelte";
     import { state } from "$lib/state.svelte.js";
 
     const { data }: PageProps = $props();
@@ -29,7 +28,11 @@
         {#if state.listView}
             <List />
         {:else}
-            <Kanban />
+            {#await import('./kanban.svelte')}
+                Loading Kanban...
+            {:then {default: Kanban}} 
+                <Kanban />
+            {/await}
         {/if}
     </div>
 </div>
