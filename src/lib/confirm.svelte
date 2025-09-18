@@ -5,7 +5,6 @@
     let node: HTMLDialogElement
 
     export function confirm(question: string): Promise<boolean> {
-        console.log(question)
         quest = question
         node.showModal()
         return new Promise(res => {
