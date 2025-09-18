@@ -36,3 +36,33 @@ export const newTaskSchema = z.object(taskValidationFields)
 export function formatValidationError(err: ZodError<any>) {
     return err.issues.map(issue => `${issue.path.join('.')}: ${issue.message}`).join('\n')
 }
+
+// Resize if too large
+const maxPhotoWidth = 600;
+const maxPhotoHeight = 600;
+
+export function optimizeImage(file: File): Promise<File> {
+    return new Promise(res => {
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+        const img = new Image();
+        img.onload = () => {
+            let { width, height } = img
+
+            if (width > maxPhotoWidth || height > maxPhotoHeight) {
+                const ratio = Math.min(maxPhotoWidth / width, maxPhotoHeight / height);
+                width *= ratio;
+                height *= ratio;
+            }
+
+            canvas.width = width;
+            canvas.height = height;
+            ctx?.drawImage(img, 0, 0, width, height);
+
+            canvas.toBlob(blob => {
+                res(new File([blob!], 'optimized.jpg', { type: 'image/jpeg' }));
+            }, 'image/jpeg', 0.8);
+        };
+        img.src = URL.createObjectURL(file);
+    });
+}

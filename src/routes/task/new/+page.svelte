@@ -3,9 +3,13 @@
     import Input from "$lib/input.svelte";
     import PhotoInput from "$lib/photo-input.svelte";
     import { state as appState } from "$lib/state.svelte";
-    import { newTaskSchema } from "$lib/util";
+    import { newTaskSchema, optimizeImage } from "$lib/util";
 
     async function submit(form: FormData) {
+        const photo = form.get('photo') as File | undefined
+        if (photo) {
+            form.set('photo', await optimizeImage(photo))
+        }
         const res = await fetch('/api/tasks', {method: 'POST', body: form})
         appState.loading = false
         if (res.ok) {
@@ -53,9 +57,9 @@
         </div>
     </div>
     <div class="p-1">
-        <button disabled={appState.loadingOptim} class="mx-1 {appState.loadingOptim ? 'bg-gray-400' : 'bg-blue-400'} px-4 py-2 rounded-lg cursor-pointer">
-            {appState.loadingOptim ? 'Adding...' : 'Add'}
+        <button disabled={appState.loading} class="mx-1 {appState.loading ? 'bg-gray-400' : 'bg-blue-400'} px-4 py-2 rounded-lg cursor-pointer">
+            {appState.loading ? 'Adding...' : 'Add'}
         </button>
-        <button disabled={appState.loadingOptim} class="mx-1 border {appState.loadingOptim ? 'border-gray-400' : 'border-blue-400'} rounded-lg p-2 cursor-pointer" type="button" onclick={() => history.back()}>Cancel</button>
+        <button disabled={appState.loading} class="mx-1 border {appState.loading ? 'border-gray-400' : 'border-blue-400'} rounded-lg p-2 cursor-pointer" type="button" onclick={() => history.back()}>Cancel</button>
     </div>
 </form>

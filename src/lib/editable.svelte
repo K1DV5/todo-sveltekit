@@ -3,7 +3,7 @@
     import { Check, X } from "@lucide/svelte";
     import Input, { type InputType } from "./input.svelte";
     import type { Task } from "./types";
-    import { taskValidationFields } from "./util";
+    import { optimizeImage, taskValidationFields } from "./util";
     import PhotoInput from "./photo-input.svelte";
     import { state as appState } from "./state.svelte";
 
@@ -40,16 +40,18 @@
         if (field === 'photo') {
             const file = value as File
             if (file.size) {
-                task[field] = URL.createObjectURL(file)
+                const optimized = await optimizeImage(file)
+                fdata.set('photo', optimized)
+                task[field] = URL.createObjectURL(optimized)
             } else {
                 task[field] = undefined
             }
         } else {
             task[field] = value as string;
         }
-        appState.loadingOptim = true
+        appState.loading = true
         const res = await fetch(`/api/tasks/${task.id}`, { method: "PUT", body: fdata });
-        appState.loadingOptim = false
+        appState.loading = false
         if (res.ok) {
             appState.alert = {
                 type: 'success',
