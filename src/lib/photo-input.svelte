@@ -87,6 +87,7 @@
         <input
             class="hidden"
             type="file"
+            accept="image/*"
             {...rest}
             onchange={onChange}
             {@attach (n) => { node = n }}
