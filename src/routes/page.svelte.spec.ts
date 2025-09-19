@@ -4,10 +4,10 @@ import { render } from 'vitest-browser-svelte';
 import Page from './+page.svelte';
 
 describe('/+page.svelte', () => {
-	it('should render h1', async () => {
+	it('should render new task btn', async () => {
 		render(Page);
 		
-		const heading = page.getByRole('heading', { level: 1 });
+		const heading = page.getByTitle('New task');
 		await expect.element(heading).toBeInTheDocument();
 	});
 });
