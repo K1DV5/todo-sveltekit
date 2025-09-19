@@ -22,6 +22,7 @@
             }
             return
         }
+        appState.deletedIds.delete(task.id) // revert
         const data: {message: string} = await res.json()
         appState.alert = {
             type: 'error',
