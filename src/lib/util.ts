@@ -1,5 +1,5 @@
 import type { Sort, Task } from "./types";
-import z, { ZodError } from "zod";
+import z, { type ZodError } from "zod";
 
 export function sortFilterTasks(tasks: Task[], sort: Sort, filter: string) {
     return tasks
