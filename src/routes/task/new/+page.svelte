@@ -6,8 +6,8 @@
     import { newTaskSchema, optimizeImage } from "$lib/util";
 
     async function submit(form: FormData) {
-        const photo = form.get('photo') as File | undefined
-        if (photo) {
+        const photo = form.get('photo') as File
+        if (photo.size) {
             form.set('photo', await optimizeImage(photo))
         }
         const res = await fetch('/api/tasks', {method: 'POST', body: form})
