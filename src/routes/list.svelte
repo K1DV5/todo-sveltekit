@@ -1,9 +1,9 @@
 <script lang="ts">
-    import TaskComp from "$lib/task.svelte";
     import { state as appState } from "$lib/state.svelte.js";
     import { sortFilterTasks } from "$lib/util";
     import Nearest from "$lib/nearest.svelte";
     import TaskItem from "$lib/task-item.svelte";
+    import { flip } from "svelte/animate";
 
     const tasks = $derived(sortFilterTasks(appState.tasks, appState.sort, appState.filter))
 
@@ -32,10 +32,12 @@
     <div class="border border-dashed mb-4"></div>
 {/if}
 
-{#each tasks as [task, i], showI}
-    {#if task.id !== appState.nearest?.id && showI < showLimit}
-        <TaskItem bind:task={appState.tasks[i]} />
-    {/if}
+{#each tasks as [task, i], showI (task.id)}
+    <div animate:flip={{duration: 300}}>
+        {#if task.id !== appState.nearest?.id && showI < showLimit}
+            <TaskItem bind:task={appState.tasks[i]} />
+        {/if}
+    </div>
 {/each}
 
 <div {@attach onAttach}></div>
