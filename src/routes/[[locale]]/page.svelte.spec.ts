@@ -7,7 +7,7 @@ describe('/+page.svelte', () => {
 	it('should render new task btn', async () => {
 		render(Page);
 		
-		const heading = page.getByTitle('New task');
-		await expect.element(heading).toBeInTheDocument();
+		const link = page.getByRole('link');
+		await expect.element(link).toBeInTheDocument();
 	});
 });

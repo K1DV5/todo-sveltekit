@@ -13,7 +13,7 @@
     {/if}
     <div class="p-2">
         <TaskComp locale={locale} bind:task={task}>
-            <a href="/${locale}/task/{task.id}" class="block p-4 pl-0 flex-grow"
+            <a href="/{locale}/task/{task.id}" class="block p-4 pl-0 flex-grow"
             >
                 <div class="font-bold {task.done ? 'line-through text-gray-400' : ''}">{task.title}</div>
                 {#if task.due_date}
