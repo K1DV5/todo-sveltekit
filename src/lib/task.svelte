@@ -3,15 +3,16 @@
     import { Circle, CircleCheck } from "@lucide/svelte";
     import type { Task } from "./types";
 
-    const {task = $bindable(), children}: {task: Task, children: any} = $props()
+    const {task = $bindable(), children, locale}: {task: Task, locale: string, children: any} = $props()
 
     async function onDone(e: Event) {
         e.stopPropagation()
         task.done = !task.done
         const form = new FormData()
         form.append('done', String(task.done))
+        // @wc-ignore
         await fetch(`/api/tasks/${task.id}`, {method: 'PUT', body: form})
-        invalidate(`/task/${task.id}`)
+        invalidate(`/${locale}/task/${task.id}`)
     }
 </script>
 

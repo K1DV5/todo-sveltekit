@@ -2,7 +2,6 @@ import type { Task, Sort } from "./types";
 
 type State = {
     filter: string,
-    locale: string,
     tasks: Task[],
     deletedIds: Set<string>,
     nearest: Task | null,
@@ -20,7 +19,6 @@ export const state: State = $state({
     tasks: [],
     deletedIds: new Set(),
     nearest: null,
-    locale: 'en',
     filter: '',
     sort: {
         by: 'due',

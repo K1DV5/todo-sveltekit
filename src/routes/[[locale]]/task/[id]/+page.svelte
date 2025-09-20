@@ -36,7 +36,7 @@
                 return
             }
             deleteTask()
-            goto('/')
+            goto(`/${data.locale}`)
         })
     }
 

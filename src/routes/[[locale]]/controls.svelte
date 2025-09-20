@@ -20,6 +20,9 @@
         state.sort.by = by;
         state.sort.ascending[by] = by === "title";
     }
+
+    const {locale}: {locale: string} = $props()
+
 </script>
 
 <nav class="bg-gray-400/30 p-4 rounded-xl flex items-start">
@@ -80,7 +83,7 @@
         </div>
     </div>
     <a
-        href="/task/new"
+        href="/{locale}/task/new"
         title="New task"
         class="inline bg-blue-500 text-white rounded-xl p-2 ml-2 cursor-pointer"
     >

@@ -2,18 +2,18 @@
     import type { Task } from "./types";
     import TaskComp from './task.svelte'
 
-    let {task = $bindable()}: {task: Task} = $props()
+    let {task = $bindable(), locale}: {task: Task, locale: string} = $props()
 </script>
 
 <div class="border rounded-xl bg-yellow-500/20 my-4 relative">
     {#if task.photo}
-        <a href="/task/{task.id}" class="block">
+        <a href="/{locale}/task/{task.id}" class="block">
             <img alt="Task" class="rounded-t w-full object-cover h-30" src={task.photo} />
         </a>
     {/if}
     <div class="p-2">
-        <TaskComp bind:task={task}>
-            <a href="/task/{task.id}" class="block p-4 pl-0 flex-grow"
+        <TaskComp locale={locale} bind:task={task}>
+            <a href="/${locale}/task/{task.id}" class="block p-4 pl-0 flex-grow"
             >
                 <div class="font-bold {task.done ? 'line-through text-gray-400' : ''}">{task.title}</div>
                 {#if task.due_date}

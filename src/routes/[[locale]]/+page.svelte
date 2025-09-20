@@ -23,7 +23,7 @@
 </svelte:head>
 
 <div class="h-full flex flex-col">
-    <Controls />
+    <Controls locale={data.locale!} />
 
     <div class="flex-grow relative">
         {#key state.listView}
@@ -33,12 +33,12 @@
                 out:fade={{duration: 150}}
             >
                 {#if state.listView}
-                    <List />
+                    <List locale={data.locale!} />
                 {:else}
                     {#await import('./kanban.svelte')}
                         Loading Kanban...
                         {:then {default: Kanban}} 
-                        <Kanban />
+                        <Kanban locale={data.locale!} />
                     {/await}
                 {/if}
             </div>

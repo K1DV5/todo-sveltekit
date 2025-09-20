@@ -15,9 +15,10 @@
     type Props = {
         title: string
         check: (task: Task) => boolean
+        locale: string
     }
 
-    const { title, check }: Props = $props();
+    const { title, check, locale }: Props = $props();
 
 </script>
 
@@ -30,9 +31,9 @@
             animate:flip={{duration: 300}}
         >
             {#if task.id === state.nearest?.id}
-                <Nearest bind:task={state.tasks[i]} />
+                <Nearest locale={locale} bind:task={state.tasks[i]} />
             {:else}
-                <TaskItem bind:task={state.tasks[i]} />
+                <TaskItem locale={locale} bind:task={state.tasks[i]} />
             {/if}
         </div>
     {/each}

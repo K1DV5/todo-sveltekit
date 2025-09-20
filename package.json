@@ -45,6 +45,9 @@
 	"dependencies": {
 		"@lucide/svelte": "^0.544.0",
 		"@vercel/blob": "^1.1.1",
+		"@wuchale/svelte": "^0.15.0",
+		"@wuchale/vite-plugin": "^0.14.6",
+		"wuchale": "^0.16.3",
 		"zod": "^4.1.5"
 	}
 }

@@ -50,6 +50,7 @@
             task[field] = value as string;
         }
         appState.loading = true
+        // @wc-ignore
         const res = await fetch(`/api/tasks/${task.id}`, { method: "PUT", body: fdata });
         appState.loading = false
         if (res.ok) {

@@ -24,18 +24,20 @@
         return () => observer.disconnect()
     }
 
+    const {locale}: {locale: string} = $props()
+
 </script>
 
 {#if appState.nearest?.title?.includes(appState.filter)}
     <div class="mt-2 text-gray-400">Nearest due task</div>
-    <Nearest bind:task={appState.nearest} />
+    <Nearest locale={locale} bind:task={appState.nearest} />
     <div class="border border-dashed mb-4"></div>
 {/if}
 
 {#each tasks as [task, i], showI (task.id)}
     <div animate:flip={{duration: 300}}>
         {#if task.id !== appState.nearest?.id && showI < showLimit}
-            <TaskItem bind:task={appState.tasks[i]} />
+            <TaskItem bind:task={appState.tasks[i]} locale={locale} />
         {/if}
     </div>
 {/each}

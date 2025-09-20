@@ -1,6 +1,7 @@
 @import 'tailwindcss';
 @plugin '@tailwindcss/forms';
 @plugin '@tailwindcss/typography';
+@source not "../locales/";
 
 body {
     height: 100vh;

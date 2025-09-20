@@ -1,0 +1,188 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-09-20T08:18:42.452Z\n"
+"PO-Revision-Date: 2025-09-20T08:44:25.292Z\n"
+"Last-Translator: \n"
+"Language: cs\n"
+"Language-Team: \n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n == 1 ? 0 : 1;\n"
+"MIME-Version: 1.0\n"
+
+#: src/lib/editable.svelte
+msgid "Successfully edited field"
+msgstr "Pole bylo úspěšně upraveno"
+
+#: src/lib/confirm.svelte
+msgid "Yes"
+msgstr "Ano"
+
+#: src/lib/confirm.svelte
+msgid "No"
+msgstr "Ne"
+
+#: src/lib/photo-input.svelte
+msgid "Current value"
+msgstr "Aktuální hodnota"
+
+#: src/lib/photo-input.svelte
+msgid "Click to select photo or drop here"
+msgstr "Klikněte pro výběr fotografie nebo ji sem přetáhněte"
+
+#: src/routes/+page.svelte
+#: src/routes/+layout.svelte
+#: src/routes/[[locale]]/+page.svelte
+msgid "Todo"
+msgstr "Úkoly"
+
+#: src/routes/+page.svelte
+#: src/routes/[[locale]]/+page.svelte
+msgid "Loading Kanban..."
+msgstr "Načítání Kanbanu..."
+
+#: src/lib/nearest.svelte
+msgid "Task"
+msgstr "Úkol"
+
+#: src/routes/kanban.svelte
+#: src/routes/[[locale]]/kanban.svelte
+msgid "Pending"
+msgstr "Čeká na vyřízení"
+
+#: src/routes/kanban.svelte
+#: src/routes/[[locale]]/kanban.svelte
+msgid "Done"
+msgstr "Hotovo"
+
+#: src/routes/controls.svelte
+#: src/routes/[[locale]]/controls.svelte
+msgid "Type to search"
+msgstr "Zadejte text pro vyhledávání"
+
+#: src/routes/controls.svelte
+#: src/routes/[[locale]]/controls.svelte
+msgid "Sort by title"
+msgstr "Seřadit podle názvu"
+
+#: src/routes/controls.svelte
+#: src/routes/[[locale]]/controls.svelte
+msgid "Sort by due time"
+msgstr "Seřadit podle času splnění"
+
+#: src/routes/controls.svelte
+#: src/routes/task/new/+page.svelte
+#: src/routes/[[locale]]/controls.svelte
+#: src/routes/[[locale]]/task/new/+page.svelte
+msgid "New task"
+msgstr "Nový úkol"
+
+#: src/routes/+layout.svelte
+msgid "Favicon"
+msgstr "Favicona"
+
+#: src/routes/task/new/+page.svelte
+#: src/routes/[[locale]]/task/new/+page.svelte
+msgid "POST"
+msgstr "POST"
+
+#: src/routes/task/new/+page.svelte
+#: src/routes/[[locale]]/task/new/+page.svelte
+msgid "Title"
+msgstr "Název"
+
+#: src/routes/task/new/+page.svelte
+#: src/routes/[[locale]]/task/new/+page.svelte
+msgid "Description"
+msgstr "Popis"
+
+#: src/routes/task/new/+page.svelte
+#: src/routes/[[locale]]/task/new/+page.svelte
+msgid "Due date"
+msgstr "Datum splnění"
+
+#: src/routes/task/new/+page.svelte
+#: src/routes/[[locale]]/task/new/+page.svelte
+msgid "Photo"
+msgstr "Fotografie"
+
+#: src/routes/task/new/+page.svelte
+#: src/routes/[[locale]]/task/new/+page.svelte
+msgid "Adding..."
+msgstr "Přidávám..."
+
+#: src/routes/task/new/+page.svelte
+#: src/routes/[[locale]]/task/new/+page.svelte
+msgid "Add"
+msgstr "Přidat"
+
+#: src/routes/task/new/+page.svelte
+#: src/routes/[[locale]]/task/new/+page.svelte
+msgid "Cancel"
+msgstr "Zrušit"
+
+#: src/routes/list.svelte
+#: src/routes/[[locale]]/list.svelte
+msgid "Nearest due task"
+msgstr "Nejbližší úkol k dokončení"
+
+#: src/routes/task/[id]/+page.svelte
+#: src/routes/[[locale]]/task/[id]/+page.svelte
+msgid "DELETE"
+msgstr "SMAZAT"
+
+#: src/routes/task/[id]/+page.svelte
+#: src/routes/[[locale]]/task/[id]/+page.svelte
+msgid "Successfully deleted task"
+msgstr "Úkol byl úspěšně smazán"
+
+#: src/routes/task/[id]/+page.svelte
+#: src/routes/[[locale]]/task/[id]/+page.svelte
+msgid "Do you really want to delete this task?"
+msgstr "Opravdu chcete smazat tento úkol?"
+
+#: src/routes/task/[id]/+page.svelte
+#: src/routes/[[locale]]/task/[id]/+page.svelte
+msgid "Delete task"
+msgstr "Smazat úkol"
+
+#: src/routes/task/[id]/+page.svelte
+#: src/routes/[[locale]]/task/[id]/+page.svelte
+msgid "(No description)"
+msgstr "(Bez popisu)"
+
+#: src/routes/task/[id]/+page.svelte
+#: src/routes/[[locale]]/task/[id]/+page.svelte
+msgid "Due on:"
+msgstr "Termín splnění:"
+
+#: src/routes/task/[id]/+page.svelte
+#: src/routes/[[locale]]/task/[id]/+page.svelte
+msgid "(No due date)"
+msgstr "(Bez termínu splnění)"
+
+#. placeholder {0}: new Date(task.created_at).toLocaleString()
+#. placeholder {0}: new Date(task.created_at).toLocaleString()
+#: src/routes/task/[id]/+page.svelte
+#: src/routes/[[locale]]/task/[id]/+page.svelte
+msgid "Created {0}"
+msgstr "Vytvořeno {0}"
+
+#. placeholder {0}: new Date(task.created_at).toLocaleString()
+#. placeholder {0}: new Date(task.created_at).toLocaleString()
+#: src/routes/task/[id]/+page.svelte
+#: src/routes/[[locale]]/task/[id]/+page.svelte
+msgid "Edited {0}"
+msgstr "Upraveno {0}"
+
+#: src/routes/task/[id]/+page.svelte
+#: src/routes/[[locale]]/task/[id]/+page.svelte
+msgid "Attachment"
+msgstr "Příloha"
+
+#: src/routes/task/[id]/+page.svelte
+#: src/routes/[[locale]]/task/[id]/+page.svelte
+msgid "(No photo)"
+msgstr "(Bez fotografie)"

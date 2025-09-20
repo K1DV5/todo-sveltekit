@@ -4,22 +4,26 @@
     import PhotoInput from "$lib/photo-input.svelte";
     import { state as appState } from "$lib/state.svelte";
     import { newTaskSchema, optimizeImage } from "$lib/util";
+    import type { PageProps } from "./$types";
+
+    const {data}: PageProps = $props()
 
     async function submit(form: FormData) {
         const photo = form.get('photo') as File
         if (photo.size) {
             form.set('photo', await optimizeImage(photo))
         }
+        // @wc-ignore
         const res = await fetch('/api/tasks', {method: 'POST', body: form})
         appState.loading = false
         if (res.ok) {
-            goto('/')
+            goto(`/${data.locale}`)
             return
         }
-        const data: {message: string} = await res.json()
+        const validation: {message: string} = await res.json()
         appState.alert = {
             type: 'error',
-            message: data.message
+            message: validation.message
         }
     }
 
