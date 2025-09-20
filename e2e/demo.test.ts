@@ -3,7 +3,7 @@ import { expect, test } from '@playwright/test';
 test('Whole workflow', async ({ page }) => {
     const taskTitle = 'Test task todo - test'
 	await page.goto('/');
-    const newBtn = page.locator('a[href="/task/new"]')
+    const newBtn = page.locator('a[href="/en/task/new"]')
 	await expect(newBtn).toBeVisible();
     newBtn.click()
     const title = page.locator('input[name="title"]')
