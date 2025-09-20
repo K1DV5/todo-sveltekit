@@ -5,6 +5,8 @@
     import { state as appState } from "$lib/state.svelte";
     import Confirm from "$lib/confirm.svelte";
 
+    const locales = ['en', 'cs']
+
     const getTime = () =>
         new Date().toLocaleString(undefined, {
             dateStyle: "medium",
@@ -32,7 +34,7 @@
     <link rel="icon" href={favicon} />
 </svelte:head>
 
-<article class="h-full flex flex-col items-center p-2">
+<div class="h-full flex flex-col items-center p-2">
     <div class="h-full flex flex-col w-[min(100%,50rem)]">
         <header class="rounded-lg flex justify-between items-center bg-blue-500 shadow-xl text-white">
             <a href="/" class="font-bold p-4 text-2xl flex items-center">
@@ -40,8 +42,21 @@
                 <span class="ml-3">Todo</span>
             </a>
             {time}
-            <div class="p-4">
-                <Globe />
+            <div class="p-4 relative group">
+                <div class="flex">
+                    <Globe />
+                    <div class="ml-1">{appState.locale.toUpperCase()}</div>
+                </div>
+                <div class="absolute right-4 p-4 border rounded-xl border-gray-400 bg-white hidden group-hover:block">
+                    {#each locales as locale}
+                        <button
+                            class="hover:text-blue-500 cursor-pointer"
+                            onclick={() => {appState.locale = locale}}
+                        >
+                            {new Intl.DisplayNames([locale], { type: "language" }).of(locale)}
+                        </button>
+                    {/each}
+                </div>
             </div>
         </header>
 
@@ -71,4 +86,4 @@
         </div>
     {/if}
     <Confirm />
-</article>
+</div>
