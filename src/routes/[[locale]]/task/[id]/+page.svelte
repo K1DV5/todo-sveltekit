@@ -50,7 +50,7 @@
 
 <div class="flex w-full">
     <div class="flex-grow">
-        <Task bind:task>
+        <Task locale={data.locale!} bind:task>
             <Editable bind:editing bind:task field="title">
                 <h1
                     class="p-4 pl-0 font-bold flex-grow {task.done
