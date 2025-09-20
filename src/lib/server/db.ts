@@ -1,7 +1,8 @@
 import type { Task } from "$lib/types";
 import { put, del, list } from "@vercel/blob";
 import { env } from '$env/dynamic/private'
-import { readFile, rm, writeFile } from "fs/promises";
+import { mkdir, readFile, rm, writeFile } from "fs/promises";
+import { dirname } from "path";
 
 const dataPath = 'data.json'
 const photosDir = 'photos'
@@ -13,7 +14,12 @@ async function writeF(name: string, contents: string | File) {
         const blob = await put(name, contents, {access: "public", token: env.BLOB_READ_WRITE_TOKEN, allowOverwrite: true})
         return blob.downloadUrl
     }
-    await writeFile(fsName(name), typeof contents === 'string' ? contents : await contents.bytes())
+    const fname = fsName(name)
+    const dir = dirname(fname)
+    if (dir) {
+        await mkdir(dir, {recursive: true})
+    }
+    await writeFile(fname, typeof contents === 'string' ? contents : await contents.bytes())
     return `/${name}`
 }
 
