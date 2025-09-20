@@ -19,6 +19,7 @@
 </script>
 
 <svelte:head>
+    <!-- @wc-ignore -->
     <title>Todo</title>
 </svelte:head>
 

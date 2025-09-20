@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-09-20T08:18:42.447Z\n"
-"PO-Revision-Date: 2025-09-20T08:44:25.347Z\n"
+"PO-Revision-Date: 2025-09-20T09:25:12.690Z\n"
 "Last-Translator: \n"
 "Language: en\n"
 "Language-Team: \n"
@@ -35,9 +35,7 @@ msgstr "Task"
 msgid "Favicon"
 msgstr "Favicon"
 
-#: src/routes/+layout.svelte
 #: src/routes/+page.svelte
-#: src/routes/[[locale]]/+page.svelte
 msgid "Todo"
 msgstr "Todo"
 

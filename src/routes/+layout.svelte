@@ -1,12 +1,11 @@
 <script lang="ts">
     import "../app.css";
     import favicon from "$lib/assets/favicon.svg";
-    import { Ban, CircleCheckBig, Globe, Loader } from "@lucide/svelte";
+    import { Ban, CircleCheckBig, Loader } from "@lucide/svelte";
     import { state as appState } from "$lib/state.svelte";
     import Confirm from "$lib/confirm.svelte";
     import type { LayoutProps } from "./$types";
-
-    const locales = ['en', 'cs']
+    import LangSelect from "$lib/lang-select.svelte";
 
     const getTime = () =>
         new Date().toLocaleString(undefined, {
@@ -40,26 +39,11 @@
         <header class="rounded-lg flex justify-between items-center bg-blue-500 shadow-xl text-white">
             <a href="/{data.locale}" class="font-bold p-4 text-2xl flex items-center">
                 <img alt="Favicon" src={favicon} />
+                <!-- @wc-ignore -->
                 <span class="ml-3">Todo</span>
             </a>
             {time}
-            <div class="p-4 relative group">
-                <div class="flex">
-                    <Globe />
-                    <div class="ml-1">{data.locale?.toUpperCase()}</div>
-                </div>
-                <div class="absolute right-4 p-4 border rounded-xl border-gray-400 bg-white hidden group-hover:block">
-                    {#each locales as locale}
-                        <a
-                            class="block py-1 hover:text-blue-500 cursor-pointer"
-                            data-sveltekit-preload-data="off"
-                            href="/{locale}"
-                        >
-                            {new Intl.DisplayNames([locale], { type: "language" }).of(locale)}
-                        </a>
-                    {/each}
-                </div>
-            </div>
+            <LangSelect locale={data.locale!} />
         </header>
 
         <main class="mt-1 flex-grow p-2 overflow-auto">
@@ -69,16 +53,16 @@
     {#if appState.alert}
         <div class="absolute bottom-4 left-4 right-0 flex justify-center">
             <div class="text-white p-4 shadow-xl rounded-lg border flex {appState.alert.type === 'error' ? 'bg-red-400' : 'bg-green-500'}">
-            {#if appState.alert.type === 'success'}
-                <CircleCheckBig />
-            {:else}
-                <Ban />
-            {/if}
-            <div>
-                {#each appState.alert.message.split('\n') as line}
-                    <div class="ml-2">{line}</div>
-                {/each}
-            </div>
+                {#if appState.alert.type === 'success'}
+                    <CircleCheckBig />
+                {:else}
+                    <Ban />
+                {/if}
+                <div>
+                    {#each appState.alert.message.split('\n') as line}
+                        <div class="ml-2">{line}</div>
+                    {/each}
+                </div>
             </div>
         </div>
     {/if}
