@@ -67,6 +67,13 @@ The deployment is done on Vercel. Since Vercel has a dedicated app for GitHub
 for handling this kind of deployment, using GitHub Actions for this was not
 necessary.
 
+### Infinite list implementation
+
+The infinite scroll functionality was implemented using the Intersection
+Observer API to not degrade performance. And while there are other types of
+implementing the infinite scroll, a continuously expanding list was implemented
+as it is the most intuitive behavior.
+
 ## Technologies used
 
 - SvelteKit 2.0
