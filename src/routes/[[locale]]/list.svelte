@@ -5,9 +5,13 @@
     import TaskItem from "$lib/task-item.svelte";
     import { flip } from "svelte/animate";
 
-    const tasks = $derived(sortFilterTasks(appState.tasks, appState.sort, appState.filter))
-
     let showLimit = $state(10)
+
+    const tasks = $derived(
+        sortFilterTasks(appState.tasks, appState.sort, appState.filter)
+        .filter(([task]) => task.id !== appState.nearest?.id)
+        .slice(0, showLimit)
+    )
 
     function onAttach(node: HTMLDivElement) {
         const options = {
@@ -34,11 +38,9 @@
     <div class="border border-dashed mb-4"></div>
 {/if}
 
-{#each tasks as [task, i], showI (task.id)}
+{#each tasks as [task, i] (task.id)}
     <div animate:flip={{duration: 300}}>
-        {#if task.id !== appState.nearest?.id && showI < showLimit}
-            <TaskItem bind:task={appState.tasks[i]} locale={locale} />
-        {/if}
+        <TaskItem bind:task={appState.tasks[i]} locale={locale} />
     </div>
 {/each}
 

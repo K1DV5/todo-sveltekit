@@ -11,11 +11,8 @@ export function sortFilterTasks(tasks: Task[], sort: Sort, filter: string) {
                 }
                 return t1.title > t2.title ? -1 : 1
             }
-            if (!t1.due_date || !t2.due_date) {
-                return 0
-            }
-            const due1 = Date.parse(t1.due_date as string)
-            const due2 = Date.parse(t2.due_date as string)
+            let due1 = Date.parse(t1.due_date as string) || 0
+            let due2 = Date.parse(t2.due_date as string) || 0
             if (sort.ascending.due) {
                 return due1 < due2 ? -1 : 1
             }
