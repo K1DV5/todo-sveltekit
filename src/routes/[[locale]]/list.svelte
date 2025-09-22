@@ -32,7 +32,7 @@
 
 </script>
 
-{#if appState.nearest?.title?.includes(appState.filter)}
+{#if appState.nearest?.title?.includes(appState.filter) && !appState.deletedIds.has(appState.nearest.id)}
     <div class="mt-2 text-gray-400">Nearest due task</div>
     <Nearest locale={locale} bind:task={appState.nearest} />
     <div class="border border-dashed mb-4"></div>
