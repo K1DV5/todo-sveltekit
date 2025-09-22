@@ -23,7 +23,7 @@
 <div class="p-4 relative group">
     <button class="flex" onclick={() => {show = !show}} {@attach onAttach}>
         <Globe />
-        <div class="ml-1">{locale.toUpperCase()}</div>
+        <div class="ml-1">{locale?.toUpperCase()}</div>
     </button>
     <div class="absolute right-4 p-4 border rounded-xl border-gray-400 bg-white {show ? '' : 'hidden'}">
         {#each locales as locale}
